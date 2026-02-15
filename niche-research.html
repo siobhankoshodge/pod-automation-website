@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niche Research Guide - POD Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .guide-header {
+            background: linear-gradient(135deg, var(--dark) 0%, #3d2f24 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .guide-header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .guide-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .guide-section {
+            margin-bottom: 3rem;
+        }
+
+        .guide-section h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        .guide-section h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .guide-section p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .guide-section ul,
+        .guide-section ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-section li {
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .guide-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--light);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .guide-table th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .guide-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+            color: var(--gray);
+        }
+
+        .guide-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .guide-box {
+            background: var(--light);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .guide-box.highlight {
+            background: #fff9f5;
+            border-left-color: var(--warning);
+        }
+
+        .guide-box.success {
+            background: #f0f8f5;
+            border-left-color: var(--success);
+        }
+
+        .guide-box h4 {
+            font-family: 'Fraunces', serif;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .guide-box p {
+            color: var(--gray);
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .guide-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--accent);
+        }
+
+        .guide-nav a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .guide-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .toc {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+        }
+
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>🎨 POD Automation</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../index.html#workflow" class="nav-link">Workflow</a></li>
+                <li><a href="../index.html#guides" class="nav-link">Guides</a></li>
+                <li><a href="../dashboard.html" class="nav-link">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Guide Header -->
+    <div class="guide-header">
+        <h1>Niche Research Guide</h1>
+        <p>Framework for identifying trending niches, scoring them, and analyzing competitors</p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="guide-content">
+        <a href="../index.html#guides" class="back-link">← Back to Guides</a>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#methodology">Research Methodology</a></li>
+                <li><a href="#scoring">Niche Scoring Framework</a></li>
+                <li><a href="#competitor">Competitor Analysis</a></li>
+                <li><a href="#audience">Audience Profiling</a></li>
+                <li><a href="#sustainability">Trend Sustainability</a></li>
+                <li><a href="#output">Research Output</a></li>
+            </ul>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="guide-section" id="methodology">
+            <h2>Part 1: Trending Niche Research Methodology</h2>
+            
+            <h3>Research Sources</h3>
+            <p>To identify trending niches, monitor these sources:</p>
+            <ul>
+                <li><strong>TikTok Discover Page</strong> - Trending sounds, hashtags, and creators</li>
+                <li><strong>TikTok For You Page (FYP) Analytics</strong> - Real-time trending content</li>
+                <li><strong>TikTok Creative Center</strong> - Official trending content data</li>
+                <li><strong>Google Trends</strong> - Cross-validation of trends</li>
+                <li><strong>Reddit Communities</strong> - Community discussions and emerging trends</li>
+            </ul>
+
+            <h3>Trending Indicators to Monitor</h3>
+            <table class="guide-table">
+                <thead>
+                    <tr>
+                        <th>Indicator</th>
+                        <th>What to Look For</th>
+                        <th>Timeframe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Viral Sounds</strong></td>
+                        <td>Audio with 100K+ uses in 7 days</td>
+                        <td>Weekly</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hashtag Velocity</strong></td>
+                        <td>Hashtags gaining 50%+ usage growth</td>
+                        <td>Weekly</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Creator Momentum</strong></td>
+                        <td>New creators gaining 100K+ followers</td>
+                        <td>Weekly</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Video Format Trends</strong></td>
+                        <td>Specific video styles going viral</td>
+                        <td>Weekly</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aesthetic Shifts</strong></td>
+                        <td>Visual style changes</td>
+                        <td>Bi-weekly</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="guide-section" id="scoring">
+            <h2>Part 2: Niche Scoring Framework</h2>
+            
+            <p>Score each trending niche on these criteria using a 1-10 scale:</p>
+
+            <h3>A. Trend Velocity (25% weight)</h3>
+            <div class="guide-box highlight">
+                <h4>Growth Rate & Sustainability</h4>
+                <p>Measure how fast the niche is growing and whether it will sustain growth for 30+ days</p>
+            </div>
+            <ul>
+                <li><strong>9-10:</strong> 100%+ growth, likely to sustain 30+ days</li>
+                <li><strong>7-8:</strong> 50-100% growth, moderate sustainability</li>
+                <li><strong>5-6:</strong> 25-50% growth, uncertain sustainability</li>
+                <li><strong>3-4:</strong> &lt;25% growth, likely short-term</li>
+                <li><strong>1-2:</strong> Declining or stagnant</li>
+            </ul>
+
+            <h3>B. Market Size (20% weight)</h3>
+            <ul>
+                <li><strong>9-10:</strong> 1M+ total videos, 100K+ avg views</li>
+                <li><strong>7-8:</strong> 500K-1M videos, 50K-100K avg views</li>
+                <li><strong>5-6:</strong> 100K-500K videos, 10K-50K avg views</li>
+                <li><strong>3-4:</strong> 50K-100K videos, 5K-10K avg views</li>
+                <li><strong>1-2:</strong> &lt;50K videos, &lt;5K avg views</li>
+            </ul>
+
+            <h3>C. Competition Level (20% weight)</h3>
+            <ul>
+                <li><strong>9-10:</strong> Few competitors, high differentiation opportunity</li>
+                <li><strong>7-8:</strong> Moderate competitors, some differentiation</li>
+                <li><strong>5-6:</strong> Many competitors, limited differentiation</li>
+                <li><strong>3-4:</strong> Saturated market, hard to differentiate</li>
+                <li><strong>1-2:</strong> Oversaturated, minimal opportunity</li>
+            </ul>
+
+            <h3>D. Profit Potential (20% weight)</h3>
+            <ul>
+                <li><strong>9-10:</strong> $25-50+ price point, 60%+ margin potential</li>
+                <li><strong>7-8:</strong> $15-25 price point, 50-60% margin potential</li>
+                <li><strong>5-6:</strong> $10-15 price point, 40-50% margin potential</li>
+                <li><strong>3-4:</strong> $5-10 price point, 30-40% margin potential</li>
+                <li><strong>1-2:</strong> &lt;$5 price point, &lt;30% margin potential</li>
+            </ul>
+
+            <h3>E. Audience Engagement (15% weight)</h3>
+            <ul>
+                <li><strong>9-10:</strong> 10%+ engagement rate, high saves</li>
+                <li><strong>7-8:</strong> 5-10% engagement rate, moderate saves</li>
+                <li><strong>5-6:</strong> 2-5% engagement rate, some saves</li>
+                <li><strong>3-4:</strong> 1-2% engagement rate, few saves</li>
+                <li><strong>1-2:</strong> &lt;1% engagement rate, minimal saves</li>
+            </ul>
+
+            <div class="guide-box success">
+                <h4>Final Niche Score Calculation</h4>
+                <p><strong>Score = (A×0.25) + (B×0.20) + (C×0.20) + (D×0.20) + (E×0.15)</strong></p>
+                <p>Score 8+: Highly recommended | Score 6-8: Good opportunity | Score 4-6: Moderate | Score &lt;4: Low opportunity</p>
+            </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="guide-section" id="competitor">
+            <h2>Part 3: Competitor Analysis</h2>
+            
+            <h3>Step 1: Identify Top Competitors</h3>
+            <p>For each trending niche, find:</p>
+            <ol>
+                <li>Top 5-10 TikTok creators posting about the niche</li>
+                <li>Top 5-10 products on Etsy/Shopify in that niche</li>
+                <li>Top 5 print-on-demand sellers (Printful, Redbubble, Teespring)</li>
+            </ol>
+
+            <h3>Step 2: Analyze Competitor Products</h3>
+            <table class="guide-table">
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>What to Document</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Product Type</strong></td>
+                        <td>T-shirt, hoodie, mug, etc.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Design Style</strong></td>
+                        <td>Minimalist, vintage, maximalist, etc.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Price Point</strong></td>
+                        <td>Selling price</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Engagement</strong></td>
+                        <td>Likes, comments, shares</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Differentiation Gap</strong></td>
+                        <td>What's missing? Opportunity for improvement?</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Step 3: Identify Differentiation Opportunities</h3>
+            <p>Ask these questions about the competitive landscape:</p>
+            <ul>
+                <li>What design elements are overused? (avoid these)</li>
+                <li>What design elements are missing? (opportunity)</li>
+                <li>What color combinations are underutilized?</li>
+                <li>What messaging angles haven't been explored?</li>
+                <li>What product types are underrepresented?</li>
+                <li>What audience segments are underserved?</li>
+            </ul>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="guide-section" id="audience">
+            <h2>Part 4: Audience Profiling</h2>
+            
+            <h3>Create Detailed Audience Profile</h3>
+            <p>For each niche, document:</p>
+
+            <h3>Demographics</h3>
+            <ul>
+                <li>Age range</li>
+                <li>Gender (male, female, non-binary, mixed)</li>
+                <li>Geographic location</li>
+                <li>Income level</li>
+                <li>Education level</li>
+            </ul>
+
+            <h3>Psychographics</h3>
+            <ul>
+                <li>Core values</li>
+                <li>Interests and hobbies</li>
+                <li>Pain points and problems</li>
+                <li>Aspirations and goals</li>
+                <li>Lifestyle preferences</li>
+            </ul>
+
+            <h3>Online Behavior</h3>
+            <ul>
+                <li>Primary platforms (TikTok, Instagram, YouTube)</li>
+                <li>Content consumption preferences</li>
+                <li>Engagement style (lurker, commenter, sharer)</li>
+                <li>Purchase triggers</li>
+                <li>Influencers they follow</li>
+            </ul>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="guide-section" id="sustainability">
+            <h2>Part 5: Trend Sustainability Analysis</h2>
+            
+            <h3>Factors Indicating Sustainable Trends (6+ months)</h3>
+            <ul>
+                <li>✅ Growing community size</li>
+                <li>✅ Diverse creator participation</li>
+                <li>✅ Multiple product types emerging</li>
+                <li>✅ Mainstream media coverage</li>
+                <li>✅ Celebrity/influencer adoption</li>
+                <li>✅ Merchandise ecosystem developing</li>
+            </ul>
+
+            <h3>Factors Indicating Short-Term Trends (1-3 months)</h3>
+            <ul>
+                <li>⚠️ Concentrated creator participation</li>
+                <li>⚠️ Declining engagement over time</li>
+                <li>⚠️ Single product type focus</li>
+                <li>⚠️ Limited geographic spread</li>
+                <li>⚠️ No mainstream adoption</li>
+                <li>⚠️ Meme-based (often short-lived)</li>
+            </ul>
+
+            <h3>Factors Indicating Dying Trends (declining)</h3>
+            <ul>
+                <li>❌ Declining video count</li>
+                <li>❌ Decreasing engagement rates</li>
+                <li>❌ Creator exodus</li>
+                <li>❌ Negative sentiment emerging</li>
+                <li>❌ Oversaturation with low-quality products</li>
+                <li>❌ Mainstream mockery/backlash</li>
+            </ul>
+        </div>
+
+        <!-- Section 6 -->
+        <div class="guide-section" id="output">
+            <h2>Part 6: Research Output Template</h2>
+            
+            <p>Package your research in this format:</p>
+
+            <div class="guide-box">
+                <h4>Niche Research Report Structure</h4>
+                <p>Include for each niche:</p>
+                <ul>
+                    <li>Niche name and description</li>
+                    <li>Niche score (1-10)</li>
+                    <li>Trend velocity and growth rate</li>
+                    <li>Market size and audience</li>
+                    <li>Competitor landscape</li>
+                    <li>Recommended product type and price point</li>
+                    <li>Design direction and aesthetic</li>
+                    <li>Target audience profile</li>
+                    <li>Trending elements (sounds, hashtags, language)</li>
+                    <li>Risk assessment</li>
+                    <li>Final recommendation (pursue, consider, skip)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="guide-nav">
+            <a href="../index.html#guides">← Back to Guides</a>
+            <a href="artwork.html">Next Guide →</a>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

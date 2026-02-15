@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - POD Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--dark) 0%, #3d2f24 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .dashboard-header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-widget {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--primary);
+        }
+
+        .dashboard-widget h2 {
+            font-family: 'Fraunces', serif;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .widget-content {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 8px;
+        }
+
+        .metric-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .metric-value {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .calculator-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(212, 113, 77, 0.1);
+        }
+
+        .calculate-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .calculate-btn:hover {
+            background: #c45a3d;
+        }
+
+        .result-box {
+            background: #f0f8f5;
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-box h4 {
+            color: var(--success);
+            margin-bottom: 0.5rem;
+            font-family: 'Fraunces', serif;
+        }
+
+        .result-box p {
+            color: var(--gray);
+            margin: 0.3rem 0;
+        }
+
+        .checklist {
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            background: var(--light);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item:hover {
+            background: #e8e0d8;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-right: 1rem;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .checklist-item.completed {
+            opacity: 0.6;
+        }
+
+        .checklist-item.completed label {
+            text-decoration: line-through;
+        }
+
+        .checklist-item label {
+            cursor: pointer;
+            flex-grow: 1;
+            color: var(--dark);
+        }
+
+        .timeline-view {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-step {
+            display: flex;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 50px;
+            width: 2px;
+            height: 60px;
+            background: var(--accent);
+        }
+
+        .timeline-step:last-child::before {
+            display: none;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-content {
+            margin-left: 2rem;
+        }
+
+        .step-content h4 {
+            font-family: 'Fraunces', serif;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .step-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>🎨 POD Automation</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#workflow" class="nav-link">Workflow</a></li>
+                <li><a href="index.html#guides" class="nav-link">Guides</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <h1>📊 Automation Dashboard</h1>
+        <p>Track your workflow, calculate ROI, and manage your automation cycle</p>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Performance Metrics Widget -->
+            <div class="dashboard-widget">
+                <h2>📈 Performance Metrics</h2>
+                <div class="widget-content">
+                    <div class="metric-row">
+                        <span class="metric-label">Video Engagement Rate</span>
+                        <span class="metric-value">3-5%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%"></div>
+                    </div>
+                    
+                    <div class="metric-row">
+                        <span class="metric-label">Click-Through Rate</span>
+                        <span class="metric-value">2-3%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 25%"></div>
+                    </div>
+                    
+                    <div class="metric-row">
+                        <span class="metric-label">Conversion Rate</span>
+                        <span class="metric-value">1-2%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 15%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROI Calculator Widget -->
+            <div class="dashboard-widget">
+                <h2>💰 ROI Calculator</h2>
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label>Monthly Sales Units</label>
+                        <input type="number" id="unitsPerMonth" placeholder="e.g., 75" value="75" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Selling Price ($)</label>
+                        <input type="number" id="sellingPrice" placeholder="e.g., 25" value="25" min="1" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label>Production Cost ($)</label>
+                        <input type="number" id="productionCost" placeholder="e.g., 8" value="8" min="1" step="0.01">
+                    </div>
+                    <button class="calculate-btn" onclick="calculateROI()">Calculate ROI</button>
+                    
+                    <div class="result-box" id="roiResult">
+                        <h4>💡 Your ROI Results</h4>
+                        <p><strong>Monthly Revenue:</strong> <span id="monthlyRevenue">$0</span></p>
+                        <p><strong>Monthly Profit:</strong> <span id="monthlyProfit">$0</span></p>
+                        <p><strong>Profit Margin:</strong> <span id="profitMargin">0%</span></p>
+                        <p><strong>Annual Profit:</strong> <span id="annualProfit">$0</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2-Day Cycle Timeline Widget -->
+            <div class="dashboard-widget">
+                <h2>⏱️ 2-Day Automation Cycle</h2>
+                <div class="timeline-view">
+                    <div class="timeline-step">
+                        <div class="step-circle">1</div>
+                        <div class="step-content">
+                            <h4>Day 1 - Morning</h4>
+                            <p>Niche Research & Analysis</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-circle">2</div>
+                        <div class="step-content">
+                            <h4>Day 1 - Afternoon</h4>
+                            <p>Design Generation & ROI</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-circle">3</div>
+                        <div class="step-content">
+                            <h4>Day 2 - Morning</h4>
+                            <p>Lifestyle Images</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-circle">✓</div>
+                        <div class="step-content">
+                            <h4>Day 2 - Evening</h4>
+                            <p>Video Briefs & TikTok Posts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Implementation Checklist Widget -->
+            <div class="dashboard-widget">
+                <h2>✅ Implementation Checklist</h2>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check1" onchange="toggleChecklist(this)">
+                        <label for="check1">Set up Printify account</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check2" onchange="toggleChecklist(this)">
+                        <label for="check2">Review niche research framework</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check3" onchange="toggleChecklist(this)">
+                        <label for="check3">Prepare design templates</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check4" onchange="toggleChecklist(this)">
+                        <label for="check4">Set up TikTok account</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check5" onchange="toggleChecklist(this)">
+                        <label for="check5">Install video editing software</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check6" onchange="toggleChecklist(this)">
+                        <label for="check6">Create first niche research report</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time Savings Calculator Widget -->
+            <div class="dashboard-widget">
+                <h2>⏳ Time Savings Calculator</h2>
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label>Current Time Spent (hours/week)</label>
+                        <input type="number" id="currentTime" placeholder="e.g., 40" value="40" min="1">
+                    </div>
+                    <button class="calculate-btn" onclick="calculateTimeSavings()">Calculate Savings</button>
+                    
+                    <div class="result-box" id="timeSavingsResult">
+                        <h4>⚡ Your Time Savings</h4>
+                        <p><strong>Time Saved Per Week:</strong> <span id="weekSavings">0</span> hours</p>
+                        <p><strong>Time Saved Per Month:</strong> <span id="monthSavings">0</span> hours</p>
+                        <p><strong>Time Saved Per Year:</strong> <span id="yearSavings">0</span> hours</p>
+                        <p><strong>Equivalent Days Freed:</strong> <span id="daysSaved">0</span> days/year</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Metrics Widget -->
+            <div class="dashboard-widget">
+                <h2>🎯 Success Metrics to Track</h2>
+                <div class="widget-content">
+                    <div class="metric-row">
+                        <span class="metric-label">Target Video Views</span>
+                        <span class="metric-value">5K-50K</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Target Engagement</span>
+                        <span class="metric-value">3-5%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Target Conversion</span>
+                        <span class="metric-value">1-2%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Trend Sustainability</span>
+                        <span class="metric-value">30+ days</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Full Width Section -->
+        <div class="dashboard-widget" style="margin-top: 2rem;">
+            <h2>📋 Quick Start Guide</h2>
+            <div style="color: var(--gray); line-height: 1.8;">
+                <h3 style="font-family: 'Fraunces', serif; color: var(--dark); margin-bottom: 1rem;">Getting Started in 6 Steps</h3>
+                <ol style="margin-left: 2rem;">
+                    <li><strong>Set up Printify:</strong> Create account, connect suppliers, configure product settings</li>
+                    <li><strong>Review Guides:</strong> Read all 6 guides to understand the complete workflow</li>
+                    <li><strong>Prepare Templates:</strong> Create design templates for quick iteration</li>
+                    <li><strong>Start Research:</strong> Begin with niche research using the framework provided</li>
+                    <li><strong>Create Content:</strong> Generate designs, images, and video briefs</li>
+                    <li><strong>Post & Monitor:</strong> Upload to TikTok and track performance metrics</li>
+                </ol>
+                <p style="margin-top: 1.5rem;"><strong>Expected Timeline:</strong> First profitable product in 2-4 weeks | Full automation in 6-8 weeks</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function calculateROI() {
+            const units = parseFloat(document.getElementById('unitsPerMonth').value) || 0;
+            const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
+            const productionCost = parseFloat(document.getElementById('productionCost').value) || 0;
+
+            const monthlyRevenue = units * sellingPrice;
+            const monthlyProfit = units * (sellingPrice - productionCost);
+            const profitMargin = sellingPrice > 0 ? ((sellingPrice - productionCost) / sellingPrice * 100).toFixed(1) : 0;
+            const annualProfit = monthlyProfit * 12;
+
+            document.getElementById('monthlyRevenue').textContent = '$' + monthlyRevenue.toFixed(2);
+            document.getElementById('monthlyProfit').textContent = '$' + monthlyProfit.toFixed(2);
+            document.getElementById('profitMargin').textContent = profitMargin + '%';
+            document.getElementById('annualProfit').textContent = '$' + annualProfit.toFixed(2);
+            
+            document.getElementById('roiResult').classList.add('show');
+        }
+
+        function calculateTimeSavings() {
+            const currentTime = parseFloat(document.getElementById('currentTime').value) || 0;
+            const automationSavings = 20; // 20 hours saved per 2-day cycle
+            
+            const weekSavings = (automationSavings / 2).toFixed(1);
+            const monthSavings = (weekSavings * 4.33).toFixed(1);
+            const yearSavings = (monthSavings * 12).toFixed(0);
+            const daysSaved = (yearSavings / 8).toFixed(0);
+
+            document.getElementById('weekSavings').textContent = weekSavings;
+            document.getElementById('monthSavings').textContent = monthSavings;
+            document.getElementById('yearSavings').textContent = yearSavings;
+            document.getElementById('daysSaved').textContent = daysSaved;
+            
+            document.getElementById('timeSavingsResult').classList.add('show');
+        }
+
+        function toggleChecklist(checkbox) {
+            const item = checkbox.closest('.checklist-item');
+            if (checkbox.checked) {
+                item.classList.add('completed');
+            } else {
+                item.classList.remove('completed');
+            }
+        }
+
+        // Auto-calculate on page load
+        window.addEventListener('load', () => {
+            calculateROI();
+            calculateTimeSavings();
+        });
+    </script>
+</body>
+</html>
