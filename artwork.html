@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artwork Generation Guide - POD Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d4714d;
+            --secondary: #8b6f47;
+            --accent: #c9a876;
+            --dark: #2d2416;
+            --light: #f5f1ed;
+            --white: #ffffff;
+            --gray: #666666;
+            --success: #6b9080;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        /* Header */
+        .guide-header {
+            background: linear-gradient(135deg, var(--dark) 0%, #3d2f24 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .guide-header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Content Styles */
+        h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--gray);
+        }
+
+        .highlight {
+            background: rgba(212, 113, 77, 0.1);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .highlight strong {
+            color: var(--primary);
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            color: var(--gray);
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .spec-table th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .spec-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .spec-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background: var(--light);
+        }
+
+        .design-variation {
+            background: white;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .design-variation h4 {
+            font-family: 'Fraunces', serif;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .design-variation p {
+            margin-bottom: 0.8rem;
+        }
+
+        .design-variation ul {
+            margin-left: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            color: var(--secondary);
+        }
+
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>🎨 POD Automation</h1>
+            </div>
+            <a href="../index-enhanced.html" class="nav-link">← Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="guide-header">
+        <h1>Artwork Generation Guide</h1>
+        <p>Create 5 unique design variations per niche, all print-ready for Printify integration</p>
+    </div>
+
+    <div class="container">
+        <a href="../index-enhanced.html" class="back-link">← Back to Home</a>
+
+        <h2>Overview</h2>
+        <p>The Artwork Generation phase creates 5 distinct design variations for each trending niche. Each design is optimized for print-on-demand products and ready to upload directly to Printify. This phase ensures visual diversity while maintaining brand consistency and niche relevance.</p>
+
+        <div class="highlight">
+            <strong>Key Objective:</strong> Generate 5 print-ready artwork files per niche that appeal to your target audience and are optimized for Printify's product catalog.
+        </div>
+
+        <h2>Design Specifications</h2>
+        <p>All artwork must meet these technical and creative specifications:</p>
+
+        <table class="spec-table">
+            <tr>
+                <th>Specification</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td><strong>File Format</strong></td>
+                <td>PNG or PDF (300 DPI minimum for print quality)</td>
+            </tr>
+            <tr>
+                <td><strong>Color Mode</strong></td>
+                <td>RGB or CMYK (CMYK preferred for print accuracy)</td>
+            </tr>
+            <tr>
+                <td><strong>Resolution</strong></td>
+                <td>300 DPI (dots per inch) for professional print quality</td>
+            </tr>
+            <tr>
+                <td><strong>Dimensions</strong></td>
+                <td>Varies by product (T-shirt: 11"x14", Hoodie: 12"x16", etc.)</td>
+            </tr>
+            <tr>
+                <td><strong>Bleed Area</strong></td>
+                <td>0.25" minimum bleed on all sides</td>
+            </tr>
+            <tr>
+                <td><strong>Safe Zone</strong></td>
+                <td>0.5" from edges to avoid cutting issues</td>
+            </tr>
+            <tr>
+                <td><strong>File Size</strong></td>
+                <td>Under 50MB for Printify upload</td>
+            </tr>
+        </table>
+
+        <h2>5 Design Variations</h2>
+        <p>Each niche receives 5 distinct design approaches to maximize appeal and test different visual strategies:</p>
+
+        <div class="design-variation">
+            <h4>1. Conservative Design</h4>
+            <p><strong>Purpose:</strong> Appeal to mainstream audience with subtle, professional aesthetics</p>
+            <ul>
+                <li>Minimalist approach with clean typography</li>
+                <li>Limited color palette (2-3 colors max)</li>
+                <li>Professional fonts and spacing</li>
+                <li>Timeless appeal over trendy elements</li>
+                <li>Best for: Corporate, professional, lifestyle niches</li>
+            </ul>
+        </div>
+
+        <div class="design-variation">
+            <h4>2. Trendy Design</h4>
+            <p><strong>Purpose:</strong> Capture current design trends and appeal to younger demographics</p>
+            <ul>
+                <li>Bold colors and eye-catching graphics</li>
+                <li>Modern typography with personality</li>
+                <li>Trending design elements (gradients, overlays, etc.)</li>
+                <li>High visual impact and shareability</li>
+                <li>Best for: Fashion, lifestyle, meme-based niches</li>
+            </ul>
+        </div>
+
+        <div class="design-variation">
+            <h4>3. Bold/Statement Design</h4>
+            <p><strong>Purpose:</strong> Make a strong visual statement with powerful messaging</p>
+            <ul>
+                <li>Large, impactful typography</li>
+                <li>High contrast colors</li>
+                <li>Strong visual hierarchy</li>
+                <li>Memorable and conversation-starting</li>
+                <li>Best for: Activist, humor, niche community niches</li>
+            </ul>
+        </div>
+
+        <div class="design-variation">
+            <h4>4. Niche-Specific Design</h4>
+            <p><strong>Purpose:</strong> Deeply resonate with niche community using insider references</p>
+            <ul>
+                <li>Niche-specific symbols, terminology, or inside jokes</li>
+                <li>Community-aligned color schemes</li>
+                <li>References to niche culture or values</li>
+                <li>Creates strong community identity</li>
+                <li>Best for: Gaming, hobby, subculture niches</li>
+            </ul>
+        </div>
+
+        <div class="design-variation">
+            <h4>5. Experimental Design</h4>
+            <p><strong>Purpose:</strong> Test innovative approaches and discover new winning formulas</p>
+            <ul>
+                <li>Unique artistic approach</li>
+                <li>Unconventional color combinations</li>
+                <li>Novel design techniques</li>
+                <li>Risk-taking with calculated creativity</li>
+                <li>Best for: Testing market response and innovation</li>
+            </ul>
+        </div>
+
+        <h2>Design Creation Process</h2>
+        <p>Follow this step-by-step process for each design variation:</p>
+
+        <h3>Step 1: Niche Research & Inspiration</h3>
+        <ul>
+            <li>Review niche research findings and audience profile</li>
+            <li>Analyze competitor designs in the niche</li>
+            <li>Identify color preferences and design trends</li>
+            <li>Note typography styles popular in the niche</li>
+            <li>Collect design inspiration from top performers</li>
+        </ul>
+
+        <h3>Step 2: Concept Development</h3>
+        <ul>
+            <li>Brainstorm 3-5 concepts per design variation</li>
+            <li>Create rough sketches or wireframes</li>
+            <li>Ensure each variation has distinct visual identity</li>
+            <li>Validate concepts align with niche values</li>
+            <li>Select strongest concept for each variation</li>
+        </ul>
+
+        <h3>Step 3: Design Execution</h3>
+        <ul>
+            <li>Use professional design tools (Adobe Creative Suite, Figma, Canva Pro)</li>
+            <li>Apply design specifications (dimensions, DPI, color mode)</li>
+            <li>Implement typography hierarchy and spacing</li>
+            <li>Add visual elements (graphics, icons, patterns)</li>
+            <li>Ensure text is readable and impactful</li>
+        </ul>
+
+        <h3>Step 4: Quality Assurance</h3>
+        <ul>
+            <li>Verify all specifications are met (DPI, dimensions, file format)</li>
+            <li>Check for color accuracy and contrast</li>
+            <li>Test readability at different sizes</li>
+            <li>Ensure no text/graphics in bleed areas</li>
+            <li>Validate file size is under 50MB</li>
+        </ul>
+
+        <h3>Step 5: Printify Preparation</h3>
+        <ul>
+            <li>Export files in Printify-compatible format (PNG or PDF)</li>
+            <li>Rename files clearly (e.g., "Niche-Name-Design-1-Conservative")</li>
+            <li>Create organized folder structure</li>
+            <li>Document design specifications for each file</li>
+            <li>Prepare upload list with product recommendations</li>
+        </ul>
+
+        <h2>Printify Integration</h2>
+        <p>Once designs are created, integrate them with Printify:</p>
+
+        <h3>Upload Process</h3>
+        <ol>
+            <li>Log into Printify account</li>
+            <li>Create new product or select existing template</li>
+            <li>Upload artwork file (PNG or PDF)</li>
+            <li>Position design on product mockup</li>
+            <li>Adjust sizing and placement as needed</li>
+            <li>Set pricing and profit margins</li>
+            <li>Add product description and tags</li>
+            <li>Publish to sales channels (Etsy, Shopify, etc.)</li>
+        </ol>
+
+        <h3>Product Recommendations</h3>
+        <ul>
+            <li><strong>T-Shirts:</strong> Unisex, fitted, premium options</li>
+            <li><strong>Hoodies:</strong> Pullover and zip-up options</li>
+            <li><strong>Hats:</strong> Caps, beanies, bucket hats</li>
+            <li><strong>Mugs:</strong> 11oz and 15oz options</li>
+            <li><strong>Tote Bags:</strong> Natural canvas or colored options</li>
+            <li><strong>Phone Cases:</strong> Multiple phone model options</li>
+            <li><strong>Stickers:</strong> Various sizes and finishes</li>
+        </ul>
+
+        <h2>Design Best Practices</h2>
+
+        <h3>Typography</h3>
+        <ul>
+            <li>Use maximum 2-3 fonts per design</li>
+            <li>Ensure minimum 12pt font size for readability</li>
+            <li>Maintain high contrast between text and background</li>
+            <li>Use bold or heavy weights for impact</li>
+            <li>Avoid overly decorative fonts that reduce readability</li>
+        </ul>
+
+        <h3>Color Strategy</h3>
+        <ul>
+            <li>Research niche color preferences</li>
+            <li>Use 2-4 colors maximum for cohesion</li>
+            <li>Ensure colors print accurately (test CMYK conversion)</li>
+            <li>Maintain sufficient contrast for visibility</li>
+            <li>Consider color psychology for target audience</li>
+        </ul>
+
+        <h3>Visual Hierarchy</h3>
+        <ul>
+            <li>Establish clear focal point</li>
+            <li>Use size, color, and positioning to guide eye</li>
+            <li>Balance text and graphics</li>
+            <li>Avoid cluttered or overwhelming designs</li>
+            <li>Ensure design works at thumbnail size</li>
+        </ul>
+
+        <h2>Common Mistakes to Avoid</h2>
+        <ul>
+            <li>❌ Using low-resolution images (under 300 DPI)</li>
+            <li>❌ Placing important elements in bleed areas</li>
+            <li>❌ Using too many colors or fonts</li>
+            <li>❌ Ignoring niche-specific preferences</li>
+            <li>❌ Creating designs that don't scale well</li>
+            <li>❌ Forgetting to convert colors to CMYK for print</li>
+            <li>❌ Using copyrighted images without permission</li>
+            <li>❌ Neglecting white space and breathing room</li>
+        </ul>
+
+        <h2>Deliverables Checklist</h2>
+        <p>Ensure you have all required files before moving to ROI analysis:</p>
+        <ul>
+            <li>✓ 5 design files per niche (PNG or PDF, 300 DPI)</li>
+            <li>✓ Design specifications document</li>
+            <li>✓ Product recommendation list</li>
+            <li>✓ Printify upload guide</li>
+            <li>✓ Design variation descriptions</li>
+            <li>✓ Color palette documentation</li>
+            <li>✓ Typography specifications</li>
+            <li>✓ Quality assurance checklist completed</li>
+        </ul>
+
+        <h2>Next Steps</h2>
+        <p>Once artwork is complete and ready for Printify:</p>
+        <ol>
+            <li>Upload designs to Printify account</li>
+            <li>Create product listings for each design</li>
+            <li>Move to <strong>ROI Analysis</strong> phase to calculate pricing and profit projections</li>
+            <li>Generate lifestyle images to showcase products</li>
+            <li>Create video briefs for TikTok content</li>
+        </ol>
+
+        <a href="../guides/roi.html" class="cta-button">Continue to ROI Analysis →</a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Print-on-Demand Automation System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

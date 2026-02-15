@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Posts Guide - POD Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d4714d;
+            --secondary: #8b6f47;
+            --accent: #c9a876;
+            --dark: #2d2416;
+            --light: #f5f1ed;
+            --white: #ffffff;
+            --gray: #666666;
+            --success: #6b9080;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        /* Header */
+        .guide-header {
+            background: linear-gradient(135deg, var(--dark) 0%, #3d2f24 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .guide-header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Content Styles */
+        h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--gray);
+        }
+
+        .highlight {
+            background: rgba(212, 113, 77, 0.1);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .highlight strong {
+            color: var(--primary);
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            color: var(--gray);
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .spec-table th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .spec-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .spec-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background: var(--light);
+        }
+
+        .post-example {
+            background: white;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .post-example h4 {
+            font-family: 'Fraunces', serif;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .post-example p {
+            margin-bottom: 0.8rem;
+        }
+
+        .post-text {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            font-style: italic;
+            color: var(--dark);
+        }
+
+        .hashtag-group {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            font-family: monospace;
+            color: var(--primary);
+            word-break: break-word;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            color: var(--secondary);
+        }
+
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>🎨 POD Automation</h1>
+            </div>
+            <a href="../index-enhanced.html" class="nav-link">← Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="guide-header">
+        <h1>TikTok Posts Guide</h1>
+        <p>Ready-to-post captions with hashtags, hooks, and niche-specific language</p>
+    </div>
+
+    <div class="container">
+        <a href="../index-enhanced.html" class="back-link">← Back to Home</a>
+
+        <h2>Overview</h2>
+        <p>The TikTok Posts phase provides complete, ready-to-post captions for your videos. Each caption includes a compelling hook, value proposition, niche-specific language, and optimized hashtag strategy. These captions are designed to maximize engagement, encourage saves/shares, and drive traffic to your product links.</p>
+
+        <div class="highlight">
+            <strong>Key Objective:</strong> Create engaging, niche-specific captions with strategic hashtags that drive engagement and conversions on TikTok.
+        </div>
+
+        <h2>Caption Structure</h2>
+        <p>Each TikTok caption follows this proven structure:</p>
+
+        <h3>1. Hook (First Line)</h3>
+        <ul>
+            <li>Grab attention immediately</li>
+            <li>Ask a question or make bold statement</li>
+            <li>Use niche-specific language</li>
+            <li>Encourage viewers to watch</li>
+            <li>Examples: "Wait for the end...", "This is why...", "POV: You just..."</li>
+        </ul>
+
+        <h3>2. Value Proposition (Middle)</h3>
+        <ul>
+            <li>Explain product benefit</li>
+            <li>Share relatable story or experience</li>
+            <li>Use emotional language</li>
+            <li>Connect to niche values</li>
+            <li>Keep it concise (2-3 sentences)</li>
+        </ul>
+
+        <h3>3. Call-to-Action (End)</h3>
+        <ul>
+            <li>"Shop now - link in bio"</li>
+            <li>"Available now"</li>
+            <li>"Get yours today"</li>
+            <li>"Limited time offer"</li>
+            <li>Include engagement prompt: "Save this", "Comment your favorite"</li>
+        </ul>
+
+        <h3>4. Hashtags (Bottom)</h3>
+        <ul>
+            <li>14-19 relevant hashtags</li>
+            <li>Mix of popular and niche-specific</li>
+            <li>Include trending hashtags</li>
+            <li>Separate from main text with line break</li>
+        </ul>
+
+        <h2>Hook Formulas</h2>
+        <p>Use these proven hook formulas to start your captions:</p>
+
+        <h3>Question Hooks</h3>
+        <ul>
+            <li>"Ever wanted to...?"</li>
+            <li>"Do you struggle with...?"</li>
+            <li>"What if I told you...?"</li>
+            <li>"Who else thinks...?"</li>
+            <li>"Am I the only one who...?"</li>
+        </ul>
+
+        <h3>Statement Hooks</h3>
+        <ul>
+            <li>"This changed my life"</li>
+            <li>"POV: You just discovered..."</li>
+            <li>"The best [product] I've ever owned"</li>
+            <li>"Finally, someone made..."</li>
+            <li>"This is why I'm obsessed with..."</li>
+        </ul>
+
+        <h3>Curiosity Hooks</h3>
+        <ul>
+            <li>"Wait for the end..."</li>
+            <li>"You won't believe what happened"</li>
+            <li>"This is insane"</li>
+            <li>"I can't believe this works"</li>
+            <li>"Nobody talks about this"</li>
+        </ul>
+
+        <h3>Trend Hooks</h3>
+        <ul>
+            <li>"Unpopular opinion: [product] is..."</li>
+            <li>"Hot take: [product] is..."</li>
+            <li>"Ranking [products]..."</li>
+            <li>"Tier list: [niche items]"</li>
+            <li>"[Product] vs [alternative]"</li>
+        </ul>
+
+        <h2>Hashtag Strategy</h2>
+
+        <h3>Hashtag Mix (14-19 total)</h3>
+        <ul>
+            <li><strong>Mega hashtags (1M+ posts):</strong> 2-3 hashtags (#FYP, #ForYou, #Viral)</li>
+            <li><strong>Popular hashtags (100K-1M posts):</strong> 4-6 hashtags (niche-specific popular tags)</li>
+            <li><strong>Medium hashtags (10K-100K posts):</strong> 5-7 hashtags (niche-specific)</li>
+            <li><strong>Niche hashtags (1K-10K posts):</strong> 2-3 hashtags (very specific to niche)</li>
+        </ul>
+
+        <h3>Hashtag Research</h3>
+        <ol>
+            <li>Search your niche on TikTok</li>
+            <li>Identify top videos in your niche</li>
+            <li>Note hashtags used in successful posts</li>
+            <li>Check hashtag view counts</li>
+            <li>Document trending hashtags</li>
+            <li>Create niche-specific hashtag list</li>
+        </ol>
+
+        <h3>Hashtag Examples by Niche</h3>
+
+        <h4>Fitness Niche</h4>
+        <div class="hashtag-group">
+            #FitnessMotivation #GymLife #WorkoutGear #FitnessTikTok #Fitfluencer #GymMotivation #FitnessApparel #WorkoutClothes #FitnessFashion #MotivationMonday #FitnessGoals #HealthyLifestyle #FYP #ForYou #Viral
+        </div>
+
+        <h4>Coffee Lover Niche</h4>
+        <div class="hashtag-group">
+            #CoffeeLover #CoffeeAddict #CoffeeCulture #CoffeeLife #MorningCoffee #CoffeeMug #CoffeeArt #CoffeeShop #CoffeeTok #CoffeeGear #CoffeeObsessed #CaffeineFix #FYP #ForYou #Viral
+        </div>
+
+        <h4>Gaming Niche</h4>
+        <div class="hashtag-group">
+            #GamingTok #GamerLife #GamingGear #EsportsTok #GamersOfTikTok #GamingCommunity #PCGaming #ConsoleGaming #GamingSetup #GamingApparel #ProGamer #GamingMerch #FYP #ForYou #Viral
+        </div>
+
+        <h2>Example Posts</h2>
+
+        <div class="post-example">
+            <h4>Fitness Niche Example</h4>
+            <div class="post-text">
+                "Ever wanted a shirt that actually motivates you at the gym? 💪 This design hits different when you're pushing through those last reps. The quality is insane and it's become my go-to for every workout. If you're serious about your fitness journey, this is a must-have. Shop now - link in bio! Save this for later 🔥"
+            </div>
+            <div class="hashtag-group">
+                #FitnessMotivation #GymLife #WorkoutGear #FitnessTikTok #Fitfluencer #GymMotivation #FitnessApparel #WorkoutClothes #FitnessFashion #MotivationMonday #FitnessGoals #HealthyLifestyle #FYP #ForYou #Viral
+            </div>
+        </div>
+
+        <div class="post-example">
+            <h4>Coffee Lover Niche Example</h4>
+            <div class="post-text">
+                "POV: You just found the perfect coffee mug that gets it. ☕ This design is literally me every morning - can't function without coffee. The quality is chef's kiss and it keeps my coffee hot for hours. Every coffee lover needs this in their collection. Get yours - link in bio! Comment your coffee order 👇"
+            </div>
+            <div class="hashtag-group">
+                #CoffeeLover #CoffeeAddict #CoffeeCulture #CoffeeLife #MorningCoffee #CoffeeMug #CoffeeArt #CoffeeShop #CoffeeTok #CoffeeGear #CoffeeObsessed #CaffeineFix #FYP #ForYou #Viral
+            </div>
+        </div>
+
+        <div class="post-example">
+            <h4>Gaming Niche Example</h4>
+            <div class="post-text">
+                "This hoodie is literally every gamer's dream 🎮 The design is fire and it's so comfortable for those 12-hour gaming sessions. Quality is insane - you can tell they actually understand gamers. If you're building your gaming setup, start with this. Shop now - link in bio! Save this post 🔥"
+            </div>
+            <div class="hashtag-group">
+                #GamingTok #GamerLife #GamingGear #EsportsTok #GamersOfTikTok #GamingCommunity #PCGaming #ConsoleGaming #GamingSetup #GamingApparel #ProGamer #GamingMerch #FYP #ForYou #Viral
+            </div>
+        </div>
+
+        <h2>Niche-Specific Language</h2>
+
+        <h3>Fitness Niche</h3>
+        <ul>
+            <li>"No pain, no gain"</li>
+            <li>"Grind mentality"</li>
+            <li>"Beast mode"</li>
+            <li>"Gains"</li>
+            <li>"Shredded"</li>
+            <li>"Pump"</li>
+            <li>"Gains season"</li>
+        </ul>
+
+        <h3>Coffee Niche</h3>
+        <ul>
+            <li>"Coffee addict"</li>
+            <li>"Caffeine fix"</li>
+            <li>"Coffee o'clock"</li>
+            <li>"Espresso yourself"</li>
+            <li>"Latte life"</li>
+            <li>"Coffee goals"</li>
+            <li>"Brew crew"</li>
+        </ul>
+
+        <h3>Gaming Niche</h3>
+        <ul>
+            <li>"Clutch play"</li>
+            <li>"GG" (good game)</li>
+            <li>"Noob"</li>
+            <li>"Pro gamer"</li>
+            <li>"Gaming setup"</li>
+            <li>"Esports"</li>
+            <li>"Competitive"</li>
+        </ul>
+
+        <h2>Engagement Prompts</h2>
+        <p>End captions with engagement prompts to boost interaction:</p>
+
+        <h3>Save Prompts</h3>
+        <ul>
+            <li>"Save this for later"</li>
+            <li>"Save this post"</li>
+            <li>"Bookmark this"</li>
+            <li>"Screenshot this"</li>
+        </ul>
+
+        <h3>Comment Prompts</h3>
+        <ul>
+            <li>"Comment your favorite..."</li>
+            <li>"What do you think?"</li>
+            <li>"Agree or disagree?"</li>
+            <li>"Tell me in the comments"</li>
+            <li>"What's your take?"</li>
+        </ul>
+
+        <h3>Share Prompts</h3>
+        <ul>
+            <li>"Tag someone who needs this"</li>
+            <li>"Send this to your friend"</li>
+            <li>"Share with your crew"</li>
+            <li>"Tell your bestie"</li>
+        </ul>
+
+        <h2>Caption Length Guidelines</h2>
+
+        <table class="spec-table">
+            <tr>
+                <th>Length</th>
+                <th>Engagement</th>
+                <th>Recommendation</th>
+            </tr>
+            <tr>
+                <td><strong>Under 50 characters</strong></td>
+                <td>Very High</td>
+                <td>Great for hooks, minimal text</td>
+            </tr>
+            <tr>
+                <td><strong>50-150 characters</strong></td>
+                <td>High</td>
+                <td>Optimal for most posts</td>
+            </tr>
+            <tr>
+                <td><strong>150-300 characters</strong></td>
+                <td>Medium</td>
+                <td>Good for storytelling</td>
+            </tr>
+            <tr>
+                <td><strong>300+ characters</strong></td>
+                <td>Lower</td>
+                <td>Use sparingly, must be compelling</td>
+            </tr>
+        </table>
+
+        <h2>Posting Strategy</h2>
+
+        <h3>Optimal Posting Times</h3>
+        <ul>
+            <li><strong>Weekdays:</strong> 6-10 AM, 12-2 PM, 7-11 PM</li>
+            <li><strong>Weekends:</strong> 11 AM-1 PM, 7-11 PM</li>
+            <li><strong>Best overall:</strong> Tuesday-Thursday, 6-9 AM</li>
+        </ul>
+
+        <h3>Posting Frequency</h3>
+        <ul>
+            <li>Minimum: 3-5 posts per week</li>
+            <li>Optimal: 1-2 posts per day</li>
+            <li>Consistency matters more than frequency</li>
+            <li>Use TikTok's scheduling feature</li>
+        </ul>
+
+        <h2>Common Mistakes to Avoid</h2>
+        <ul>
+            <li>❌ Weak or unclear hook</li>
+            <li>❌ Too many hashtags (over 20)</li>
+            <li>❌ Hashtags unrelated to content</li>
+            <li>❌ Unclear CTA</li>
+            <li>❌ Niche-inappropriate language</li>
+            <li>❌ Overly salesy tone</li>
+            <li>❌ Spelling or grammar errors</li>
+            <li>❌ No engagement prompt</li>
+        </ul>
+
+        <h2>Deliverables Checklist</h2>
+        <ul>
+            <li>✓ 3-5 ready-to-post captions per niche</li>
+            <li>✓ Each caption includes hook, value prop, CTA</li>
+            <li>✓ 14-19 hashtags per caption</li>
+            <li>✓ Niche-specific language used</li>
+            <li>✓ Engagement prompts included</li>
+            <li>✓ Hashtag research documentation</li>
+            <li>✓ Posting schedule recommendations</li>
+            <li>✓ Performance tracking template</li>
+        </ul>
+
+        <h2>Next Steps</h2>
+        <ol>
+            <li>Review captions for each niche</li>
+            <li>Customize captions for your brand voice</li>
+            <li>Research trending hashtags for your niche</li>
+            <li>Create TikTok account (if needed)</li>
+            <li>Upload videos with captions</li>
+            <li>Post according to optimal schedule</li>
+            <li>Monitor engagement and adjust strategy</li>
+            <li>Repeat cycle every 2 days</li>
+        </ol>
+
+        <a href="../dashboard.html" class="cta-button">View Full Dashboard →</a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Print-on-Demand Automation System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

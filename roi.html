@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Analysis Guide - POD Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d4714d;
+            --secondary: #8b6f47;
+            --accent: #c9a876;
+            --dark: #2d2416;
+            --light: #f5f1ed;
+            --white: #ffffff;
+            --gray: #666666;
+            --success: #6b9080;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        /* Header */
+        .guide-header {
+            background: linear-gradient(135deg, var(--dark) 0%, #3d2f24 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .guide-header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Content Styles */
+        h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--gray);
+        }
+
+        .highlight {
+            background: rgba(212, 113, 77, 0.1);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .highlight strong {
+            color: var(--primary);
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            color: var(--gray);
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .spec-table th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .spec-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .spec-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background: var(--light);
+        }
+
+        .scenario-box {
+            background: white;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .scenario-box h4 {
+            font-family: 'Fraunces', serif;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .metric-value {
+            font-family: 'Fraunces', serif;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            color: var(--secondary);
+        }
+
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .metric-row {
+                flex-direction: column;
+            }
+
+            .metric-value {
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>🎨 POD Automation</h1>
+            </div>
+            <a href="../index-enhanced.html" class="nav-link">← Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="guide-header">
+        <h1>ROI Analysis Guide</h1>
+        <p>Financial projections, pricing strategies, and profit calculations for your print-on-demand business</p>
+    </div>
+
+    <div class="container">
+        <a href="../index-enhanced.html" class="back-link">← Back to Home</a>
+
+        <h2>Overview</h2>
+        <p>The ROI Analysis phase provides comprehensive financial projections for each niche. This includes cost breakdowns, three sales scenarios (conservative, moderate, optimistic), pricing recommendations, and profit calculations. Understanding your potential ROI helps you prioritize niches and make informed business decisions.</p>
+
+        <div class="highlight">
+            <strong>Key Objective:</strong> Provide clear financial projections showing profit potential across multiple sales scenarios to guide product selection and pricing strategy.
+        </div>
+
+        <h2>Cost Structure Analysis</h2>
+        <p>Understanding your costs is essential for calculating profit margins:</p>
+
+        <table class="spec-table">
+            <tr>
+                <th>Cost Category</th>
+                <th>Typical Range</th>
+                <th>Notes</th>
+            </tr>
+            <tr>
+                <td><strong>T-Shirt (Base)</strong></td>
+                <td>$4.50 - $7.00</td>
+                <td>Varies by quality and print method</td>
+            </tr>
+            <tr>
+                <td><strong>Hoodie (Base)</strong></td>
+                <td>$8.00 - $12.00</td>
+                <td>Premium materials increase cost</td>
+            </tr>
+            <tr>
+                <td><strong>Hat/Cap (Base)</strong></td>
+                <td>$3.00 - $5.00</td>
+                <td>Lower production costs</td>
+            </tr>
+            <tr>
+                <td><strong>Mug (Base)</strong></td>
+                <td>$2.50 - $4.00</td>
+                <td>Ceramic or stainless steel options</td>
+            </tr>
+            <tr>
+                <td><strong>Tote Bag (Base)</strong></td>
+                <td>$3.50 - $5.50</td>
+                <td>Canvas or organic cotton</td>
+            </tr>
+            <tr>
+                <td><strong>Printify Fee</strong></td>
+                <td>0% - 5%</td>
+                <td>Depends on sales channel</td>
+            </tr>
+            <tr>
+                <td><strong>Platform Fee</strong></td>
+                <td>2% - 5%</td>
+                <td>Etsy, Shopify, or custom store</td>
+            </tr>
+        </table>
+
+        <h2>Pricing Strategy</h2>
+        <p>Recommended pricing based on product cost and market positioning:</p>
+
+        <h3>Markup Formula</h3>
+        <p><strong>Selling Price = Product Cost ÷ (1 - Desired Profit Margin)</strong></p>
+        <p>For example, with a $6 product cost and 50% profit margin target:</p>
+        <p><strong>Selling Price = $6 ÷ (1 - 0.50) = $12</strong></p>
+
+        <h3>Recommended Profit Margins by Product</h3>
+        <ul>
+            <li><strong>T-Shirts:</strong> 50-70% margin ($12-15 retail)</li>
+            <li><strong>Hoodies:</strong> 40-60% margin ($18-25 retail)</li>
+            <li><strong>Hats:</strong> 60-80% margin ($8-12 retail)</li>
+            <li><strong>Mugs:</strong> 70-100% margin ($10-15 retail)</li>
+            <li><strong>Tote Bags:</strong> 60-80% margin ($12-18 retail)</li>
+        </ul>
+
+        <h2>Three Sales Scenarios</h2>
+        <p>Analyze profitability across realistic sales projections:</p>
+
+        <h3>Scenario 1: Conservative (Low Sales)</h3>
+        <div class="scenario-box">
+            <h4>📊 Conservative Scenario</h4>
+            <p><strong>Assumption:</strong> 15 units sold per month</p>
+            <div class="metric-row">
+                <span class="metric-label">Average Product Cost</span>
+                <span class="metric-value">$6.00</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Average Selling Price</span>
+                <span class="metric-value">$14.00</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Gross Profit per Unit</span>
+                <span class="metric-value">$8.00</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Platform/Printify Fees (10%)</span>
+                <span class="metric-value">-$1.40</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Net Profit per Unit</span>
+                <span class="metric-value">$6.60</span>
+            </div>
+            <div class="metric-row" style="border-bottom: 2px solid var(--primary); font-weight: bold;">
+                <span class="metric-label">Monthly Profit (15 units)</span>
+                <span class="metric-value">$99</span>
+            </div>
+            <div class="metric-row" style="font-weight: bold;">
+                <span class="metric-label">Annual Profit</span>
+                <span class="metric-value">$1,188</span>
+            </div>
+        </div>
+
+        <h3>Scenario 2: Moderate (Steady Sales)</h3>
+        <div class="scenario-box">
+            <h4>📊 Moderate Scenario</h4>
+            <p><strong>Assumption:</strong> 75 units sold per month</p>
+            <div class="metric-row">
+                <span class="metric-label">Average Product Cost</span>
+                <span class="metric-value">$6.00</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Average Selling Price</span>
+                <span class="metric-value">$14.00</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Gross Profit per Unit</span>
+                <span class="metric-value">$8.00</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Platform/Printify Fees (10%)</span>
+                <span class="metric-value">-$1.40</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Net Profit per Unit</span>
+                <span class="metric-value">$6.60</span>
+            </div>
+            <div class="metric-row" style="border-bottom: 2px solid var(--primary); font-weight: bold;">
+                <span class="metric-label">Monthly Profit (75 units)</span>
+                <span class="metric-value">$495</span>
+            </div>
+            <div class="metric-row" style="font-weight: bold;">
+                <span class="metric-label">Annual Profit</span>
+                <span class="metric-value">$5,940</span>
+            </div>
+        </div>
+
+        <h3>Scenario 3: Optimistic (Strong Sales)</h3>
+        <div class="scenario-box">
+            <h4>📊 Optimistic Scenario</h4>
+            <p><strong>Assumption:</strong> 300 units sold per month</p>
+            <div class="metric-row">
+                <span class="metric-label">Average Product Cost</span>
+                <span class="metric-value">$6.00</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Average Selling Price</span>
+                <span class="metric-value">$14.00</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Gross Profit per Unit</span>
+                <span class="metric-value">$8.00</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Platform/Printify Fees (10%)</span>
+                <span class="metric-value">-$1.40</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Net Profit per Unit</span>
+                <span class="metric-value">$6.60</span>
+            </div>
+            <div class="metric-row" style="border-bottom: 2px solid var(--primary); font-weight: bold;">
+                <span class="metric-label">Monthly Profit (300 units)</span>
+                <span class="metric-value">$1,980</span>
+            </div>
+            <div class="metric-row" style="font-weight: bold;">
+                <span class="metric-label">Annual Profit</span>
+                <span class="metric-value">$23,760</span>
+            </div>
+        </div>
+
+        <h2>Niche Prioritization Matrix</h2>
+        <p>Evaluate niches based on multiple factors:</p>
+
+        <table class="spec-table">
+            <tr>
+                <th>Factor</th>
+                <th>Weight</th>
+                <th>Evaluation Criteria</th>
+            </tr>
+            <tr>
+                <td><strong>Market Size</strong></td>
+                <td>25%</td>
+                <td>Larger audience = higher sales potential</td>
+            </tr>
+            <tr>
+                <td><strong>Competition Level</strong></td>
+                <td>20%</td>
+                <td>Lower competition = easier market entry</td>
+            </tr>
+            <tr>
+                <td><strong>Profit Margin</strong></td>
+                <td>25%</td>
+                <td>Higher margins = better profitability</td>
+            </tr>
+            <tr>
+                <td><strong>Trend Momentum</strong></td>
+                <td>15%</td>
+                <td>Growing trends = sustained demand</td>
+            </tr>
+            <tr>
+                <td><strong>Audience Engagement</strong></td>
+                <td>15%</td>
+                <td>High engagement = better conversion rates</td>
+            </tr>
+        </table>
+
+        <h2>Break-Even Analysis</h2>
+        <p>Calculate how many units you need to sell to break even:</p>
+
+        <h3>Break-Even Formula</h3>
+        <p><strong>Break-Even Units = Fixed Costs ÷ Profit per Unit</strong></p>
+        <p>For this business model with minimal fixed costs:</p>
+        <ul>
+            <li>Assuming $0 fixed costs (Printify handles production)</li>
+            <li>Every unit sold generates profit</li>
+            <li>No break-even threshold needed</li>
+            <li>Profit scales directly with sales volume</li>
+        </ul>
+
+        <h2>Profitability Factors</h2>
+        <p>Key factors that influence profitability:</p>
+
+        <h3>Positive Factors (Increase Profit)</h3>
+        <ul>
+            <li>✓ Higher average order value (premium products)</li>
+            <li>✓ Lower product costs (bulk ordering)</li>
+            <li>✓ Better conversion rates (optimized marketing)</li>
+            <li>✓ Repeat customers (brand loyalty)</li>
+            <li>✓ Multiple product offerings (cross-selling)</li>
+            <li>✓ Niche community engagement (word-of-mouth)</li>
+        </ul>
+
+        <h3>Negative Factors (Decrease Profit)</h3>
+        <ul>
+            <li>✗ High competition (price wars)</li>
+            <li>✗ Low conversion rates (poor marketing)</li>
+            <li>✗ Returns and refunds (quality issues)</li>
+            <li>✗ Platform fee increases</li>
+            <li>✗ Seasonal demand fluctuations</li>
+            <li>✗ Inventory management costs</li>
+        </ul>
+
+        <h2>Financial Projections Template</h2>
+        <p>Create projections for each niche using this template:</p>
+
+        <h3>Monthly Projection (Year 1)</h3>
+        <ul>
+            <li><strong>Month 1-2:</strong> Launch phase (10-20 units/month)</li>
+            <li><strong>Month 3-4:</strong> Growth phase (30-50 units/month)</li>
+            <li><strong>Month 5-8:</strong> Scaling phase (75-150 units/month)</li>
+            <li><strong>Month 9-12:</strong> Optimization phase (150-300 units/month)</li>
+        </ul>
+
+        <h3>Annual Projection (Year 1-3)</h3>
+        <ul>
+            <li><strong>Year 1:</strong> $3,000 - $10,000 profit (testing phase)</li>
+            <li><strong>Year 2:</strong> $10,000 - $30,000 profit (scaling phase)</li>
+            <li><strong>Year 3:</strong> $30,000 - $100,000+ profit (optimization phase)</li>
+        </ul>
+
+        <h2>Deliverables Checklist</h2>
+        <ul>
+            <li>✓ Cost analysis for all product types</li>
+            <li>✓ Pricing recommendations per product</li>
+            <li>✓ Three sales scenario projections</li>
+            <li>✓ Niche prioritization matrix</li>
+            <li>✓ Break-even analysis</li>
+            <li>✓ Annual profit projections</li>
+            <li>✓ Financial assumptions documentation</li>
+            <li>✓ Risk assessment and mitigation strategies</li>
+        </ul>
+
+        <h2>Next Steps</h2>
+        <ol>
+            <li>Review ROI projections for each niche</li>
+            <li>Prioritize niches based on profit potential</li>
+            <li>Finalize pricing strategy</li>
+            <li>Move to <strong>Lifestyle Images</strong> phase to create product showcase content</li>
+            <li>Prepare for video content creation</li>
+        </ol>
+
+        <a href="../guides/lifestyle.html" class="cta-button">Continue to Lifestyle Images →</a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Print-on-Demand Automation System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

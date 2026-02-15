@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Briefs Guide - POD Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d4714d;
+            --secondary: #8b6f47;
+            --accent: #c9a876;
+            --dark: #2d2416;
+            --light: #f5f1ed;
+            --white: #ffffff;
+            --gray: #666666;
+            --success: #6b9080;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        /* Header */
+        .guide-header {
+            background: linear-gradient(135deg, var(--dark) 0%, #3d2f24 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .guide-header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Content Styles */
+        h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--gray);
+        }
+
+        .highlight {
+            background: rgba(212, 113, 77, 0.1);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .highlight strong {
+            color: var(--primary);
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            color: var(--gray);
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .spec-table th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .spec-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .spec-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background: var(--light);
+        }
+
+        .scene-box {
+            background: white;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .scene-box h4 {
+            font-family: 'Fraunces', serif;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .scene-box p {
+            margin-bottom: 0.8rem;
+        }
+
+        .scene-box ul {
+            margin-left: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            color: var(--secondary);
+        }
+
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>🎨 POD Automation</h1>
+            </div>
+            <a href="../index-enhanced.html" class="nav-link">← Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="guide-header">
+        <h1>Video Briefs Guide</h1>
+        <p>Detailed scene breakdowns and audio recommendations for 15-60 second TikTok videos</p>
+    </div>
+
+    <div class="container">
+        <a href="../index-enhanced.html" class="back-link">← Back to Home</a>
+
+        <h2>Overview</h2>
+        <p>The Video Briefs phase provides comprehensive scene-by-scene breakdowns for creating engaging TikTok videos. Each brief includes specific scenes, transitions, text overlays, timing, and trending audio recommendations tailored to your niche. These briefs guide video creation without requiring Manus video generation (you can create videos yourself or brief an editor).</p>
+
+        <div class="highlight">
+            <strong>Key Objective:</strong> Provide detailed video briefs that guide the creation of 15-60 second TikTok videos optimized for engagement and niche relevance.
+        </div>
+
+        <h2>Video Specifications</h2>
+
+        <table class="spec-table">
+            <tr>
+                <th>Specification</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td><strong>Duration</strong></td>
+                <td>15-60 seconds (optimal: 20-45 seconds)</td>
+            </tr>
+            <tr>
+                <td><strong>Aspect Ratio</strong></td>
+                <td>9:16 (vertical/portrait for TikTok)</td>
+            </tr>
+            <tr>
+                <td><strong>Resolution</strong></td>
+                <td>1080x1920px minimum (1440x2560px optimal)</td>
+            </tr>
+            <tr>
+                <td><strong>Frame Rate</strong></td>
+                <td>30fps or 60fps</td>
+            </tr>
+            <tr>
+                <td><strong>File Format</strong></td>
+                <td>MP4 or MOV</td>
+            </tr>
+            <tr>
+                <td><strong>Audio</strong></td>
+                <td>Trending TikTok sounds (see recommendations)</td>
+            </tr>
+            <tr>
+                <td><strong>Text Overlay</strong></td>
+                <td>2-4 text elements, readable at thumbnail size</td>
+            </tr>
+        </table>
+
+        <h2>Video Structure</h2>
+        <p>Each TikTok video follows this proven structure:</p>
+
+        <h3>Hook (0-3 seconds)</h3>
+        <ul>
+            <li>Grab attention immediately</li>
+            <li>Show product or create curiosity</li>
+            <li>Use bold text or visual</li>
+            <li>Stop the scroll</li>
+        </ul>
+
+        <h3>Value/Story (3-45 seconds)</h3>
+        <ul>
+            <li>Showcase product benefits</li>
+            <li>Tell relatable story</li>
+            <li>Multiple scenes/angles</li>
+            <li>Build emotional connection</li>
+        </ul>
+
+        <h3>Call-to-Action (45-60 seconds)</h3>
+        <ul>
+            <li>Clear next step</li>
+            <li>Link to product</li>
+            <li>Encourage engagement</li>
+            <li>End with memorable visual</li>
+        </ul>
+
+        <h2>Scene Breakdown Template</h2>
+
+        <div class="scene-box">
+            <h4>Scene 1: Hook</h4>
+            <ul>
+                <li><strong>Duration:</strong> 0-3 seconds</li>
+                <li><strong>Visual:</strong> [Describe what's on screen]</li>
+                <li><strong>Text Overlay:</strong> [Bold, attention-grabbing text]</li>
+                <li><strong>Audio:</strong> [Sound effect or music beat]</li>
+                <li><strong>Action:</strong> [What's happening]</li>
+            </ul>
+        </div>
+
+        <div class="scene-box">
+            <h4>Scene 2: Product Showcase</h4>
+            <ul>
+                <li><strong>Duration:</strong> 3-15 seconds</li>
+                <li><strong>Visual:</strong> [Product close-up or in use]</li>
+                <li><strong>Text Overlay:</strong> [Product feature or benefit]</li>
+                <li><strong>Audio:</strong> [Trending sound or music]</li>
+                <li><strong>Action:</strong> [Rotate, zoom, or transition]</li>
+            </ul>
+        </div>
+
+        <div class="scene-box">
+            <h4>Scene 3: Lifestyle/Benefit</h4>
+            <ul>
+                <li><strong>Duration:</strong> 15-45 seconds</li>
+                <li><strong>Visual:</strong> [Product in use or lifestyle context]</li>
+                <li><strong>Text Overlay:</strong> [Benefit or emotional appeal]</li>
+                <li><strong>Audio:</strong> [Trending sound continues]</li>
+                <li><strong>Action:</strong> [Person using product, reaction]</li>
+            </ul>
+        </div>
+
+        <div class="scene-box">
+            <h4>Scene 4: Call-to-Action</h4>
+            <ul>
+                <li><strong>Duration:</strong> 45-60 seconds</li>
+                <li><strong>Visual:</strong> [Product hero shot or logo]</li>
+                <li><strong>Text Overlay:</strong> [CTA: "Shop Now", "Link in Bio", etc.]</li>
+                <li><strong>Audio:</strong> [Music crescendo or sound effect]</li>
+                <li><strong>Action:</strong> [Static or final transition]</li>
+            </ul>
+        </div>
+
+        <h2>Text Overlay Guidelines</h2>
+
+        <h3>Hook Text (Scene 1)</h3>
+        <ul>
+            <li>Use questions: "Ever wanted...?"</li>
+            <li>Use statements: "This changed my life"</li>
+            <li>Use numbers: "3 reasons why..."</li>
+            <li>Use urgency: "Don't miss out"</li>
+            <li>Font: Bold, large, high contrast</li>
+        </ul>
+
+        <h3>Benefit Text (Scene 2-3)</h3>
+        <ul>
+            <li>Highlight key features</li>
+            <li>Emphasize emotional benefits</li>
+            <li>Use niche-specific language</li>
+            <li>Keep text concise (2-5 words)</li>
+            <li>Font: Medium size, readable</li>
+        </ul>
+
+        <h3>CTA Text (Scene 4)</h3>
+        <ul>
+            <li>"Shop Now" or "Get Yours"</li>
+            <li>"Link in Bio"</li>
+            <li>"Limited Time"</li>
+            <li>"Available Now"</li>
+            <li>Font: Bold, prominent, centered</li>
+        </ul>
+
+        <h2>Trending Audio Research</h2>
+        <p>Audio is crucial for TikTok success. Research trending sounds for your niche:</p>
+
+        <h3>Audio Research Process</h3>
+        <ol>
+            <li>Visit TikTok Discover page for your niche</li>
+            <li>Identify top videos with high engagement</li>
+            <li>Note the audio/music used</li>
+            <li>Check if sound is trending (green arrow)</li>
+            <li>Document sound name and artist</li>
+            <li>Note how sound is used in successful videos</li>
+        </ol>
+
+        <h3>Audio Selection Criteria</h3>
+        <ul>
+            <li>✓ Trending (green arrow on TikTok)</li>
+            <li>✓ Niche-appropriate (matches content style)</li>
+            <li>✓ Engaging (captures attention quickly)</li>
+            <li>✓ Recognizable (viewers know the sound)</li>
+            <li>✓ Versatile (works with multiple video types)</li>
+            <li>✓ Emotional resonance (matches message)</li>
+        </ul>
+
+        <h2>Example Video Brief</h2>
+
+        <h3>Niche: Fitness/Gym Motivation</h3>
+
+        <div class="scene-box">
+            <h4>Video Brief: "Gym Motivation"</h4>
+            <p><strong>Duration:</strong> 30 seconds | <strong>Audio:</strong> "Gym" by [Artist] (trending)</p>
+            
+            <h4>Scene 1: Hook (0-3 sec)</h4>
+            <ul>
+                <li><strong>Visual:</strong> Person in gym looking tired</li>
+                <li><strong>Text:</strong> "Motivation hits different"</li>
+                <li><strong>Audio:</strong> Sound starts with bass drop</li>
+            </ul>
+
+            <h4>Scene 2: Product Reveal (3-12 sec)</h4>
+            <ul>
+                <li><strong>Visual:</strong> Close-up of motivational t-shirt design</li>
+                <li><strong>Text:</strong> "With the right mindset"</li>
+                <li><strong>Audio:</strong> Trending gym motivation sound</li>
+            </ul>
+
+            <h4>Scene 3: Lifestyle (12-25 sec)</h4>
+            <ul>
+                <li><strong>Visual:</strong> Person wearing shirt, lifting weights, confident expression</li>
+                <li><strong>Text:</strong> "You crush your goals"</li>
+                <li><strong>Audio:</strong> Sound continues, builds intensity</li>
+            </ul>
+
+            <h4>Scene 4: CTA (25-30 sec)</h4>
+            <ul>
+                <li><strong>Visual:</strong> Product hero shot with logo</li>
+                <li><strong>Text:</strong> "Shop Now - Link in Bio"</li>
+                <li><strong>Audio:</strong> Sound crescendo/finish</li>
+            </ul>
+        </div>
+
+        <h2>Video Creation Options</h2>
+
+        <h3>Option 1: DIY with CapCut</h3>
+        <ul>
+            <li>Free mobile app (iOS/Android)</li>
+            <li>Easy drag-and-drop interface</li>
+            <li>Built-in effects and transitions</li>
+            <li>TikTok integration</li>
+            <li>Time required: 30-60 minutes per video</li>
+        </ul>
+
+        <h3>Option 2: DIY with Adobe Premiere</h3>
+        <ul>
+            <li>Professional video editing software</li>
+            <li>Advanced effects and color grading</li>
+            <li>Subscription required (~$20/month)</li>
+            <li>Steeper learning curve</li>
+            <li>Time required: 1-2 hours per video</li>
+        </ul>
+
+        <h3>Option 3: Hire a Video Editor</h3>
+        <ul>
+            <li>Fiverr, Upwork, or local freelancers</li>
+            <li>Provide detailed video brief</li>
+            <li>Cost: $50-500 per video</li>
+            <li>Professional quality output</li>
+            <li>Time required: 2-3 days turnaround</li>
+        </ul>
+
+        <h2>Common Video Mistakes to Avoid</h2>
+        <ul>
+            <li>❌ Slow hook (lose viewers in first 2 seconds)</li>
+            <li>❌ Product not visible or unclear</li>
+            <li>❌ Audio doesn't match niche</li>
+            <li>❌ Text too small or hard to read</li>
+            <li>❌ Weak or unclear CTA</li>
+            <li>❌ Video too long (over 60 seconds)</li>
+            <li>❌ Poor lighting or video quality</li>
+            <li>❌ No emotional connection to content</li>
+        </ul>
+
+        <h2>Deliverables Checklist</h2>
+        <ul>
+            <li>✓ 2-3 detailed video briefs per niche</li>
+            <li>✓ Scene-by-scene breakdown for each brief</li>
+            <li>✓ Text overlay specifications</li>
+            <li>✓ Trending audio recommendations</li>
+            <li>✓ Timing and duration specifications</li>
+            <li>✓ Visual style guidelines</li>
+            <li>✓ CTA recommendations</li>
+            <li>✓ Video creation tips and tools</li>
+        </ul>
+
+        <h2>Next Steps</h2>
+        <ol>
+            <li>Review video briefs for each niche</li>
+            <li>Research trending audio for your niche</li>
+            <li>Choose video creation method (DIY or hire)</li>
+            <li>Create 2-3 videos per niche</li>
+            <li>Move to <strong>TikTok Posts</strong> phase for captions and hashtags</li>
+            <li>Schedule videos for posting</li>
+        </ol>
+
+        <a href="../guides/tiktok.html" class="cta-button">Continue to TikTok Posts →</a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Print-on-Demand Automation System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

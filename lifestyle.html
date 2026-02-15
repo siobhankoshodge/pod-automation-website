@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifestyle Images Guide - POD Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d4714d;
+            --secondary: #8b6f47;
+            --accent: #c9a876;
+            --dark: #2d2416;
+            --light: #f5f1ed;
+            --white: #ffffff;
+            --gray: #666666;
+            --success: #6b9080;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        /* Header */
+        .guide-header {
+            background: linear-gradient(135deg, var(--dark) 0%, #3d2f24 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .guide-header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Content Styles */
+        h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--gray);
+        }
+
+        .highlight {
+            background: rgba(212, 113, 77, 0.1);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .highlight strong {
+            color: var(--primary);
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            color: var(--gray);
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .spec-table th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .spec-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .spec-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background: var(--light);
+        }
+
+        .image-type {
+            background: white;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .image-type h4 {
+            font-family: 'Fraunces', serif;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .image-type p {
+            margin-bottom: 0.8rem;
+        }
+
+        .image-type ul {
+            margin-left: 1.5rem;
+        }
+
+        .prompt-box {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-style: italic;
+            color: var(--dark);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            color: var(--secondary);
+        }
+
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>🎨 POD Automation</h1>
+            </div>
+            <a href="../index-enhanced.html" class="nav-link">← Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="guide-header">
+        <h1>Lifestyle Images Guide</h1>
+        <p>Generate diverse, professional lifestyle images showcasing products in real-world contexts</p>
+    </div>
+
+    <div class="container">
+        <a href="../index-enhanced.html" class="back-link">← Back to Home</a>
+
+        <h2>Overview</h2>
+        <p>Lifestyle images show your products in real-world contexts, helping customers visualize themselves using the product. This phase generates 5 diverse lifestyle images per niche that showcase products authentically and appeal to your target audience across different demographics and scenarios.</p>
+
+        <div class="highlight">
+            <strong>Key Objective:</strong> Create 5 diverse, high-quality lifestyle images that showcase products in authentic contexts and resonate with your target audience.
+        </div>
+
+        <h2>Technical Specifications</h2>
+
+        <table class="spec-table">
+            <tr>
+                <th>Specification</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td><strong>Dimensions</strong></td>
+                <td>1080x1350px (Instagram portrait) or 1200x800px (landscape)</td>
+            </tr>
+            <tr>
+                <td><strong>File Format</strong></td>
+                <td>JPG or PNG (JPG recommended for web)</td>
+            </tr>
+            <tr>
+                <td><strong>Resolution</strong></td>
+                <td>72 DPI (web-optimized)</td>
+            </tr>
+            <tr>
+                <td><strong>File Size</strong></td>
+                <td>Under 500KB for fast loading</td>
+            </tr>
+            <tr>
+                <td><strong>Color Profile</strong></td>
+                <td>RGB (for web display)</td>
+            </tr>
+            <tr>
+                <td><strong>Background</strong></td>
+                <td>Clean, uncluttered, on-brand</td>
+            </tr>
+        </table>
+
+        <h2>5 Lifestyle Image Types</h2>
+
+        <div class="image-type">
+            <h4>1. Product Close-Up</h4>
+            <p><strong>Purpose:</strong> Showcase design details and product quality</p>
+            <ul>
+                <li>Focus on the artwork/design</li>
+                <li>Show product texture and material</li>
+                <li>Highlight unique features</li>
+                <li>Professional studio lighting</li>
+                <li>Minimal background distraction</li>
+            </ul>
+            <p><strong>Best For:</strong> T-shirts, hoodies, mugs, accessories</p>
+        </div>
+
+        <div class="image-type">
+            <h4>2. Person Wearing Product</h4>
+            <p><strong>Purpose:</strong> Show how product looks on a real person</p>
+            <ul>
+                <li>Model wearing the product confidently</li>
+                <li>Show fit and comfort</li>
+                <li>Relatable, authentic setting</li>
+                <li>Diverse model representation</li>
+                <li>Natural, lifestyle context</li>
+            </ul>
+            <p><strong>Best For:</strong> Apparel (t-shirts, hoodies, hats)</p>
+        </div>
+
+        <div class="image-type">
+            <h4>3. Product in Use</h4>
+            <p><strong>Purpose:</strong> Show product being used in real-world context</p>
+            <ul>
+                <li>Product actively being used</li>
+                <li>Relatable daily scenario</li>
+                <li>Niche-specific context</li>
+                <li>Authentic lifestyle moment</li>
+                <li>Emotional connection to product</li>
+            </ul>
+            <p><strong>Best For:</strong> Mugs, bags, accessories, lifestyle products</p>
+        </div>
+
+        <div class="image-type">
+            <h4>4. Flat Lay Composition</h4>
+            <p><strong>Purpose:</strong> Show product as part of a styled collection</p>
+            <ul>
+                <li>Product arranged with complementary items</li>
+                <li>Overhead/flat lay perspective</li>
+                <li>Cohesive color palette</li>
+                <li>Artistic arrangement</li>
+                <li>Tells a story through composition</li>
+            </ul>
+            <p><strong>Best For:</strong> All products, especially for social media</p>
+        </div>
+
+        <div class="image-type">
+            <h4>5. Lifestyle Scene</h4>
+            <p><strong>Purpose:</strong> Show product in aspirational lifestyle context</p>
+            <ul>
+                <li>Product in idealized setting</li>
+                <li>Evokes emotion and aspiration</li>
+                <li>Niche-specific environment</li>
+                <li>Tells compelling visual story</li>
+                <li>Encourages purchase intent</li>
+            </ul>
+            <p><strong>Best For:</strong> Premium products, brand storytelling</p>
+        </div>
+
+        <h2>Image Generation Prompts</h2>
+        <p>Use detailed prompts when generating lifestyle images:</p>
+
+        <h3>Example Prompt Structure</h3>
+        <div class="prompt-box">
+            "A [person description] wearing a [product type] with [design description] in a [setting description]. The image shows [what's visible], with [lighting/mood], professional photography, [style], shot in [perspective]. The overall feeling is [emotion/vibe]. High quality, detailed, realistic."
+        </div>
+
+        <h3>Prompt Examples by Niche</h3>
+
+        <h4>Fitness Niche Example</h4>
+        <div class="prompt-box">
+            "A fit woman in her 20s wearing a black athletic t-shirt with a motivational gym quote design, standing in a modern gym with dumbbells visible in the background. The image shows her confident posture and the shirt's quality fabric. Bright, energetic lighting, professional fitness photography, shot from waist-up. The overall feeling is empowering and motivational. High quality, detailed, realistic."
+        </div>
+
+        <h4>Coffee Lover Niche Example</h4>
+        <div class="prompt-box">
+            "A cozy morning scene with a ceramic mug featuring a coffee-themed design sitting on a wooden desk next to a laptop and coffee beans scattered around. Warm, natural morning sunlight streaming through a window. The image shows the mug's quality glaze and detailed design. Flat lay perspective, lifestyle photography, shot from above. The overall feeling is warm, welcoming, and relatable. High quality, detailed, realistic."
+        </div>
+
+        <h4>Gaming Niche Example</h4>
+        <div class="prompt-box">
+            "A young gamer in their 20s wearing a gaming-themed hoodie with neon design elements, sitting at a gaming setup with RGB lighting, monitors, and gaming peripherals visible. The hoodie's design is clearly visible and looks comfortable. Dramatic gaming room lighting with neon accents, professional esports photography, shot from front. The overall feeling is cool, edgy, and immersive. High quality, detailed, realistic."
+        </div>
+
+        <h2>Diversity Guidelines</h2>
+        <p>Ensure your lifestyle images represent diverse audiences:</p>
+
+        <h3>Demographic Diversity</h3>
+        <ul>
+            <li>Age range: 18-65 (multiple age groups)</li>
+            <li>Gender: Mix of all genders</li>
+            <li>Ethnicity: Multiple ethnicities represented</li>
+            <li>Body type: Various body shapes and sizes</li>
+            <li>Ability: Include people with visible disabilities</li>
+        </ul>
+
+        <h3>Setting Diversity</h3>
+        <ul>
+            <li>Indoor and outdoor settings</li>
+            <li>Urban and natural environments</li>
+            <li>Professional and casual contexts</li>
+            <li>Solo and group scenarios</li>
+            <li>Different times of day</li>
+        </ul>
+
+        <h3>Context Diversity</h3>
+        <ul>
+            <li>Work/professional settings</li>
+            <li>Leisure/hobby settings</li>
+            <li>Social/community settings</li>
+            <li>Home/personal settings</li>
+            <li>Travel/adventure settings</li>
+        </ul>
+
+        <h2>Quality Standards</h2>
+        <p>Ensure all lifestyle images meet quality standards:</p>
+
+        <h3>Visual Quality</h3>
+        <ul>
+            <li>✓ Sharp focus on product</li>
+            <li>✓ Proper exposure and lighting</li>
+            <li>✓ Accurate color representation</li>
+            <li>✓ No watermarks or logos</li>
+            <li>✓ Professional composition</li>
+        </ul>
+
+        <h3>Authenticity</h3>
+        <ul>
+            <li>✓ Real-world, relatable scenarios</li>
+            <li>✓ Genuine product usage</li>
+            <li>✓ Authentic human expressions</li>
+            <li>✓ Niche-appropriate context</li>
+            <li>✓ No overly staged appearance</li>
+        </ul>
+
+        <h3>Relevance</h3>
+        <ul>
+            <li>✓ Product clearly visible</li>
+            <li>✓ Design/artwork legible</li>
+            <li>✓ Niche-specific appeal</li>
+            <li>✓ Target audience relevance</li>
+            <li>✓ Emotional connection</li>
+        </ul>
+
+        <h2>Image Optimization for Social Media</h2>
+
+        <h3>Instagram Optimization</h3>
+        <ul>
+            <li>Use 1080x1350px (portrait) or 1080x1080px (square)</li>
+            <li>Optimize for mobile viewing</li>
+            <li>Include text overlay sparingly</li>
+            <li>Use consistent filters/editing style</li>
+            <li>Ensure product is visible in thumbnail</li>
+        </ul>
+
+        <h3>TikTok Optimization</h3>
+        <ul>
+            <li>Use 1080x1920px (vertical video format)</li>
+            <li>Ensure product is center-frame</li>
+            <li>Use dynamic, eye-catching visuals</li>
+            <li>Include quick cuts and transitions</li>
+            <li>Add text overlays for context</li>
+        </ul>
+
+        <h3>Pinterest Optimization</h3>
+        <ul>
+            <li>Use 1000x1500px (tall format)</li>
+            <li>Include text overlay with key message</li>
+            <li>Use rich, saturated colors</li>
+            <li>Ensure product is clearly visible</li>
+            <li>Create vertical-friendly compositions</li>
+        </ul>
+
+        <h2>Common Mistakes to Avoid</h2>
+        <ul>
+            <li>❌ Low-quality or blurry images</li>
+            <li>❌ Product not clearly visible</li>
+            <li>❌ Cluttered or distracting backgrounds</li>
+            <li>❌ Poor lighting or exposure</li>
+            <li>❌ Lack of diversity in representations</li>
+            <li>❌ Overly staged or artificial appearance</li>
+            <li>❌ Incorrect dimensions for platform</li>
+            <li>❌ Design details not visible</li>
+        </ul>
+
+        <h2>Deliverables Checklist</h2>
+        <ul>
+            <li>✓ 5 lifestyle images per niche</li>
+            <li>✓ All images 1080x1350px minimum</li>
+            <li>✓ All images under 500KB file size</li>
+            <li>✓ RGB color profile (web-optimized)</li>
+            <li>✓ Diverse representation across images</li>
+            <li>✓ Product clearly visible in all images</li>
+            <li>✓ Niche-appropriate context</li>
+            <li>✓ Professional quality and composition</li>
+            <li>✓ Image descriptions/captions</li>
+            <li>✓ Usage rights documentation</li>
+        </ul>
+
+        <h2>Next Steps</h2>
+        <ol>
+            <li>Generate 5 lifestyle images per niche</li>
+            <li>Optimize images for social media platforms</li>
+            <li>Create image descriptions for accessibility</li>
+            <li>Move to <strong>Video Briefs</strong> phase for content creation</li>
+            <li>Prepare images for TikTok video integration</li>
+        </ol>
+
+        <a href="../guides/video.html" class="cta-button">Continue to Video Briefs →</a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Print-on-Demand Automation System. All rights reserved.</p>
+    </footer>
+</body>
+</html>
