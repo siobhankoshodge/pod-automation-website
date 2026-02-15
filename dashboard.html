@@ -349,21 +349,21 @@
                         <input type="number" id="unitsPerMonth" placeholder="e.g., 75" value="75" min="1">
                     </div>
                     <div class="form-group">
-                        <label>Selling Price ($)</label>
+                        <label>Selling Price (£)</label>
                         <input type="number" id="sellingPrice" placeholder="e.g., 25" value="25" min="1" step="0.01">
                     </div>
                     <div class="form-group">
-                        <label>Production Cost ($)</label>
+                        <label>Production Cost (£)</label>
                         <input type="number" id="productionCost" placeholder="e.g., 8" value="8" min="1" step="0.01">
                     </div>
                     <button class="calculate-btn" onclick="calculateROI()">Calculate ROI</button>
                     
                     <div class="result-box" id="roiResult">
                         <h4>💡 Your ROI Results</h4>
-                        <p><strong>Monthly Revenue:</strong> <span id="monthlyRevenue">$0</span></p>
-                        <p><strong>Monthly Profit:</strong> <span id="monthlyProfit">$0</span></p>
+                        <p><strong>Monthly Revenue:</strong> <span id="monthlyRevenue">£0</span></p>
+                        <p><strong>Monthly Profit:</strong> <span id="monthlyProfit">£0</span></p>
                         <p><strong>Profit Margin:</strong> <span id="profitMargin">0%</span></p>
-                        <p><strong>Annual Profit:</strong> <span id="annualProfit">$0</span></p>
+                        <p><strong>Annual Profit:</strong> <span id="annualProfit">£0</span></p>
                     </div>
                 </div>
             </div>
@@ -508,10 +508,10 @@
             const profitMargin = sellingPrice > 0 ? ((sellingPrice - productionCost) / sellingPrice * 100).toFixed(1) : 0;
             const annualProfit = monthlyProfit * 12;
 
-            document.getElementById('monthlyRevenue').textContent = '$' + monthlyRevenue.toFixed(2);
-            document.getElementById('monthlyProfit').textContent = '$' + monthlyProfit.toFixed(2);
+            document.getElementById('monthlyRevenue').textContent = '£' + monthlyRevenue.toFixed(2);
+            document.getElementById('monthlyProfit').textContent = '£' + monthlyProfit.toFixed(2);
             document.getElementById('profitMargin').textContent = profitMargin + '%';
-            document.getElementById('annualProfit').textContent = '$' + annualProfit.toFixed(2);
+            document.getElementById('annualProfit').textContent = '£' + annualProfit.toFixed(2);
             
             document.getElementById('roiResult').classList.add('show');
         }
