@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Blotato Pipeline — White Paper | POD Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #d4714d;
+            --secondary: #8b6f47;
+            --accent: #c9a876;
+            --dark: #2d2416;
+            --light: #f5f1ed;
+            --white: #ffffff;
+            --gray: #666666;
+            --success: #6b9080;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover { color: var(--primary); }
+
+        /* Hero / Cover */
+        .cover {
+            background: linear-gradient(135deg, var(--dark) 0%, #3d2f24 100%);
+            color: white;
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .cover-label {
+            display: inline-block;
+            background: rgba(212,113,77,0.25);
+            border: 1px solid var(--primary);
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .cover h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .cover-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 640px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .cover-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            opacity: 0.75;
+        }
+
+        .cover-meta span { display: flex; align-items: center; gap: 0.4rem; }
+
+        /* Summary bar */
+        .summary-bar {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem 2rem;
+        }
+
+        .summary-bar .container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            text-align: center;
+        }
+
+        .summary-stat strong {
+            display: block;
+            font-family: 'Fraunces', serif;
+            font-size: 1.6rem;
+        }
+
+        .summary-stat span { font-size: 0.85rem; opacity: 0.9; }
+
+        /* Paper body */
+        .paper {
+            background: var(--white);
+        }
+
+        .paper-section {
+            padding: 4rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .paper-section:last-child { border-bottom: none; }
+
+        /* Section labels */
+        .section-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .paper-section h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .paper-section p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .paper-section p:last-child { margin-bottom: 0; }
+
+        /* Pipeline flow */
+        .pipeline {
+            margin: 2.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .pipeline-step {
+            display: grid;
+            grid-template-columns: 56px 1fr;
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        /* connector line */
+        .pipeline-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 27px;
+            top: 56px;
+            bottom: -1rem;
+            width: 2px;
+            background: var(--accent);
+        }
+
+        .step-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .step-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-body {
+            background: var(--light);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-body h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .step-tool {
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 0.7rem;
+        }
+
+        .step-body p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin: 0 0 0.8rem;
+        }
+
+        .step-details {
+            list-style: none;
+        }
+
+        .step-details li {
+            font-size: 0.9rem;
+            color: var(--gray);
+            padding: 0.2rem 0;
+        }
+
+        .step-details li::before {
+            content: "→ ";
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* How it fits together diagram */
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+            margin: 2.5rem 0;
+        }
+
+        .flow-node {
+            background: var(--light);
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            padding: 1rem 1.4rem;
+            text-align: center;
+            min-width: 130px;
+        }
+
+        .flow-node .node-icon { font-size: 1.8rem; margin-bottom: 0.3rem; }
+
+        .flow-node .node-label {
+            font-family: 'Fraunces', serif;
+            font-size: 0.95rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .flow-node .node-tool {
+            font-size: 0.72rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-top: 0.2rem;
+        }
+
+        .flow-arrow {
+            font-size: 1.4rem;
+            color: var(--accent);
+            padding: 0 0.5rem;
+            font-weight: 300;
+        }
+
+        /* Callout box */
+        .callout {
+            background: linear-gradient(135deg, #3d2f24 0%, var(--dark) 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 2rem 2.5rem;
+            margin: 2rem 0;
+        }
+
+        .callout h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.7rem;
+            color: var(--accent);
+        }
+
+        .callout p { color: rgba(255,255,255,0.85); font-size: 0.95rem; margin: 0; }
+
+        /* Tools table */
+        .tools-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+        }
+
+        .tools-table th {
+            background: var(--dark);
+            color: white;
+            text-align: left;
+            padding: 0.8rem 1rem;
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+        }
+
+        .tools-table th:first-child { border-radius: 8px 0 0 0; }
+        .tools-table th:last-child { border-radius: 0 8px 0 0; }
+
+        .tools-table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #eee;
+            color: var(--gray);
+            vertical-align: top;
+        }
+
+        .tools-table tr:last-child td { border-bottom: none; }
+        .tools-table tr:nth-child(even) td { background: var(--light); }
+
+        .tools-table td:first-child {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            display: grid;
+            gap: 0.6rem;
+            margin: 1.5rem 0;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            background: var(--light);
+            border-radius: 8px;
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .checklist li .check {
+            color: var(--success);
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 0.05rem;
+        }
+
+        /* Conclusion / CTA */
+        .conclusion {
+            background: linear-gradient(135deg, var(--dark) 0%, #3d2f24 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .conclusion h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .conclusion p {
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.05rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            margin: 0.4rem;
+        }
+
+        .cta-button:hover { background: transparent; color: var(--primary); }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        .cta-button.secondary:hover { background: white; color: var(--dark); }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 { font-family: 'Fraunces', serif; margin-bottom: 1rem; }
+        .footer-section p { color: rgba(255,255,255,0.8); font-size: 0.9rem; line-height: 1.6; }
+        .footer-section ul { list-style: none; }
+        .footer-section ul li { margin-bottom: 0.5rem; }
+        .footer-section a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease; }
+        .footer-section a:hover { color: var(--primary); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cover h1 { font-size: 2rem; }
+            .nav-menu { gap: 1rem; font-size: 0.9rem; }
+            .flow-diagram { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+            .paper-section { padding: 2.5rem 0; }
+            .summary-bar .container { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>🎨 POD Automation</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#workflow" class="nav-link">Workflow</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="blotato-pipeline.html" class="nav-link" style="color: var(--accent);">Blotato Pipeline</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Cover -->
+    <header class="cover">
+        <div class="cover-label">White Paper</div>
+        <h1>The Blotato Pipeline</h1>
+        <p class="cover-subtitle">
+            How Claude picks the niche, Gemini designs the product, and Blotato turns it into
+            a video that posts itself to three platforms — automatically.
+        </p>
+        <div class="cover-meta">
+            <span>📅 February 2026</span>
+            <span>🤖 Claude + Gemini + Blotato</span>
+            <span>📱 TikTok · Instagram · YouTube Shorts</span>
+        </div>
+    </header>
+
+    <!-- Summary bar -->
+    <div class="summary-bar">
+        <div class="container">
+            <div class="summary-stat">
+                <strong>4</strong>
+                <span>Pipeline Stages</span>
+            </div>
+            <div class="summary-stat">
+                <strong>3</strong>
+                <span>AI Tools Orchestrated</span>
+            </div>
+            <div class="summary-stat">
+                <strong>3</strong>
+                <span>Platforms Posted To</span>
+            </div>
+            <div class="summary-stat">
+                <strong>~0</strong>
+                <span>Minutes of Manual Work</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paper body -->
+    <main class="paper">
+
+        <!-- 1. Executive Summary -->
+        <section class="paper-section">
+            <div class="container">
+                <div class="section-tag">Section 1</div>
+                <h2>Executive Summary</h2>
+                <p>
+                    This white paper documents a fully automated content-to-commerce pipeline built on top of
+                    three AI services: <strong>Claude</strong> (Anthropic) for strategic niche selection,
+                    <strong>Gemini</strong> (Google DeepMind) for product design and image generation, and
+                    <strong>Blotato</strong> for AI-native video creation and multi-platform publishing.
+                </p>
+                <p>
+                    Once triggered, the pipeline runs end-to-end without human intervention. Claude identifies
+                    the highest-potential print-on-demand niche based on trend signals and market data.
+                    Gemini translates that brief into ready-to-print product artwork. Blotato then ingests the
+                    artwork, produces a short-form video, and simultaneously posts it to TikTok, Instagram
+                    Reels, and YouTube Shorts.
+                </p>
+                <p>
+                    The result is a repeatable, scalable system that collapses what traditionally takes a
+                    designer, marketer, and social media manager into a single automated cycle measured in
+                    minutes rather than days.
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. Architecture overview -->
+        <section class="paper-section">
+            <div class="container">
+                <div class="section-tag">Section 2</div>
+                <h2>System Architecture</h2>
+                <p>
+                    The pipeline is composed of four discrete stages, each handed off sequentially. Every
+                    stage produces a structured output that serves as the input for the next.
+                </p>
+
+                <div class="flow-diagram">
+                    <div class="flow-node">
+                        <div class="node-icon">🧠</div>
+                        <div class="node-label">Niche Selection</div>
+                        <div class="node-tool">Claude</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-node">
+                        <div class="node-icon">🎨</div>
+                        <div class="node-label">Product Design</div>
+                        <div class="node-tool">Gemini</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-node">
+                        <div class="node-icon">🎬</div>
+                        <div class="node-label">Video Creation</div>
+                        <div class="node-tool">Blotato</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-node">
+                        <div class="node-icon">📲</div>
+                        <div class="node-label">Auto-Publish</div>
+                        <div class="node-tool">3 Platforms</div>
+                    </div>
+                </div>
+
+                <div class="callout">
+                    <h3>Why three separate AI tools?</h3>
+                    <p>
+                        Each model is used where it excels. Claude's reasoning and market-analysis capabilities
+                        make it the best choice for strategic decisions. Gemini's image-generation pipeline
+                        produces high-fidelity, print-ready artwork at scale. Blotato's native integrations
+                        with social platforms mean no additional API plumbing — it handles scheduling,
+                        captioning, and posting in one step.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Stage-by-stage breakdown -->
+        <section class="paper-section">
+            <div class="container">
+                <div class="section-tag">Section 3</div>
+                <h2>Stage-by-Stage Breakdown</h2>
+                <p>The following describes each stage in operational detail.</p>
+
+                <div class="pipeline">
+
+                    <!-- Stage 1 -->
+                    <div class="pipeline-step">
+                        <div class="step-left">
+                            <div class="step-icon">🧠</div>
+                        </div>
+                        <div class="step-body">
+                            <div class="step-tool">Stage 1 — Claude (Anthropic)</div>
+                            <h3>Niche Selection &amp; Brief Generation</h3>
+                            <p>
+                                Claude is prompted with a structured research task: identify the single
+                                highest-potential print-on-demand niche for the current cycle. It evaluates
+                                trend velocity, audience size, competition density, and purchase intent before
+                                returning a scored recommendation.
+                            </p>
+                            <ul class="step-details">
+                                <li>Scans trend signals across social and search data</li>
+                                <li>Scores candidates on a 1–10 framework (demand, margin, competition)</li>
+                                <li>Selects the winning niche and writes a design brief</li>
+                                <li>Brief includes target audience, colour palette, tone, and copy direction</li>
+                                <li>Output is a structured JSON / markdown document passed to Stage 2</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Stage 2 -->
+                    <div class="pipeline-step">
+                        <div class="step-left">
+                            <div class="step-icon">🎨</div>
+                        </div>
+                        <div class="step-body">
+                            <div class="step-tool">Stage 2 — Gemini (Google DeepMind)</div>
+                            <h3>Product Design &amp; Artwork Generation</h3>
+                            <p>
+                                Gemini receives Claude's brief and generates print-ready product artwork.
+                                The model is prompted to produce designs that meet Printify's technical
+                                specifications — transparent background, minimum 300 dpi equivalent, correct
+                                colour profile — so the file can be uploaded to a product listing immediately.
+                            </p>
+                            <ul class="step-details">
+                                <li>Interprets the creative brief from Stage 1</li>
+                                <li>Generates primary design plus up to 3 variation options</li>
+                                <li>Outputs PNG files suitable for direct Printify upload</li>
+                                <li>Also produces a lifestyle mockup image for use in the video</li>
+                                <li>Returns file paths and alt-text metadata to the pipeline</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Stage 3 -->
+                    <div class="pipeline-step">
+                        <div class="step-left">
+                            <div class="step-icon">🎬</div>
+                        </div>
+                        <div class="step-body">
+                            <div class="step-tool">Stage 3 — Blotato</div>
+                            <h3>AI Video Production</h3>
+                            <p>
+                                Blotato ingests the product imagery and the niche brief, then autonomously
+                                produces a short-form video. It selects a video template appropriate for the
+                                niche, layers in the product visuals, adds AI-generated voiceover or text
+                                overlays, and matches trending audio where available.
+                            </p>
+                            <ul class="step-details">
+                                <li>Receives artwork files and copy direction from Stage 2 / Stage 1</li>
+                                <li>Selects optimised video template (reveal, lifestyle, testimonial-style)</li>
+                                <li>Adds captions, hashtags, and a call-to-action from Claude's brief</li>
+                                <li>Renders a 15–30 second vertical video (9:16) ready for all three platforms</li>
+                                <li>Queues the video for immediate or scheduled publishing</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Stage 4 -->
+                    <div class="pipeline-step">
+                        <div class="step-left">
+                            <div class="step-icon">📲</div>
+                        </div>
+                        <div class="step-body">
+                            <div class="step-tool">Stage 4 — Blotato Multi-Platform Publishing</div>
+                            <h3>Automated Cross-Platform Posting</h3>
+                            <p>
+                                Blotato simultaneously pushes the finished video to all three connected
+                                platform accounts. Each post is formatted according to platform requirements —
+                                caption length limits, hashtag placement, thumbnail selection — without
+                                additional manual steps.
+                            </p>
+                            <ul class="step-details">
+                                <li>Posts to TikTok with niche hashtags and trending audio attribution</li>
+                                <li>Posts to Instagram Reels with tailored caption and product link in bio</li>
+                                <li>Posts to YouTube Shorts with SEO-optimised title and description</li>
+                                <li>Records publish timestamps and platform post IDs for tracking</li>
+                                <li>Pipeline complete — total elapsed time: minutes, not days</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Tools & requirements -->
+        <section class="paper-section">
+            <div class="container">
+                <div class="section-tag">Section 4</div>
+                <h2>Tools &amp; Requirements</h2>
+                <p>
+                    The following accounts and configurations are required to run the pipeline. All three
+                    AI services offer free tiers or trials; Blotato's social publishing requires connected
+                    platform accounts.
+                </p>
+
+                <table class="tools-table">
+                    <thead>
+                        <tr>
+                            <th>Tool</th>
+                            <th>Role in Pipeline</th>
+                            <th>Required Setup</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Claude (Anthropic)</td>
+                            <td>Niche research, scoring, and brief generation</td>
+                            <td>API key or Claude.ai account; structured system prompt</td>
+                        </tr>
+                        <tr>
+                            <td>Gemini (Google)</td>
+                            <td>Product artwork and lifestyle image generation</td>
+                            <td>Google AI Studio API key; image generation enabled</td>
+                        </tr>
+                        <tr>
+                            <td>Blotato</td>
+                            <td>Video creation and multi-platform publishing</td>
+                            <td>Blotato account; TikTok, Instagram, and YouTube connected</td>
+                        </tr>
+                        <tr>
+                            <td>Printify (optional)</td>
+                            <td>Product listing from generated artwork</td>
+                            <td>Printify account; store connected to Etsy or Shopify</td>
+                        </tr>
+                        <tr>
+                            <td>Automation layer</td>
+                            <td>Orchestrates handoffs between tools</td>
+                            <td>Make.com, Zapier, or custom script; webhook endpoints</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 5. Prompt strategy -->
+        <section class="paper-section">
+            <div class="container">
+                <div class="section-tag">Section 5</div>
+                <h2>Prompt Strategy</h2>
+                <p>
+                    The reliability of this pipeline depends almost entirely on the quality and structure of
+                    the prompts passed to each model. The following principles underpin each stage.
+                </p>
+
+                <ul class="checklist">
+                    <li>
+                        <span class="check">✓</span>
+                        <span><strong>Claude — Constrained output format.</strong> The niche brief prompt
+                        instructs Claude to return a fixed JSON schema. This prevents freeform text that
+                        would break the downstream handoff to Gemini.</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span><strong>Claude — Explicit scoring rubric.</strong> The prompt defines the
+                        1–10 scoring dimensions (demand, margin, saturation, trend velocity) so the
+                        ranking is objective and reproducible.</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span><strong>Gemini — Technical constraints embedded in prompt.</strong> The design
+                        prompt includes Printify's file requirements (resolution, background, safe zone)
+                        so the output is immediately upload-ready.</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span><strong>Gemini — Variation instruction.</strong> Asking for a primary design
+                        plus variants in a single call reduces latency and keeps the style consistent
+                        across the set.</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span><strong>Blotato — Brief injection.</strong> The niche name, target audience,
+                        key benefit, and CTA from Stage 1 are passed directly into Blotato's brief field
+                        so caption and script generation stays on-brand.</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span><strong>All stages — Idempotent design.</strong> Every stage can be re-run
+                        independently with the same inputs and produce equivalent outputs, making
+                        debugging and iteration straightforward.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 6. Benefits & limitations -->
+        <section class="paper-section">
+            <div class="container">
+                <div class="section-tag">Section 6</div>
+                <h2>Benefits &amp; Known Limitations</h2>
+
+                <p style="margin-bottom: 1.5rem;">
+                    The pipeline delivers substantial time savings and enables rapid iteration across niches,
+                    but operators should be aware of the following trade-offs.
+                </p>
+
+                <table class="tools-table">
+                    <thead>
+                        <tr>
+                            <th>Benefit</th>
+                            <th>Limitation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Entire cycle runs in minutes with no manual intervention</td>
+                            <td>Platform API rate limits can delay posting in high-volume schedules</td>
+                        </tr>
+                        <tr>
+                            <td>Consistent brand voice driven by a single Claude brief</td>
+                            <td>AI-generated artwork may occasionally miss niche cultural nuance</td>
+                        </tr>
+                        <tr>
+                            <td>Three-platform reach from a single content production run</td>
+                            <td>Platform algorithm changes can reduce organic reach without warning</td>
+                        </tr>
+                        <tr>
+                            <td>Easily scheduled to run on a recurring cadence (e.g. every 2 days)</td>
+                            <td>Human review of generated content is advisable before scaling spend</td>
+                        </tr>
+                        <tr>
+                            <td>No design or video editing skills required</td>
+                            <td>Blotato video templates limit creative differentiation at high volume</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 7. Running the pipeline -->
+        <section class="paper-section">
+            <div class="container">
+                <div class="section-tag">Section 7</div>
+                <h2>Running the Pipeline</h2>
+                <p>The following checklist covers everything needed to execute a single pipeline cycle.</p>
+
+                <ul class="checklist">
+                    <li><span class="check">1</span><span>Open Claude and run the niche research prompt. Confirm the JSON output contains a winning niche, scoring breakdown, and design brief.</span></li>
+                    <li><span class="check">2</span><span>Pass the design brief to Gemini. Review the generated artwork for print readiness (transparent background, correct dimensions). Download the primary PNG and lifestyle mockup.</span></li>
+                    <li><span class="check">3</span><span>Upload the product PNG to Printify (optional). Set pricing, connect to your store, and publish the listing.</span></li>
+                    <li><span class="check">4</span><span>Open Blotato and create a new video. Paste Claude's niche brief into the brief field. Upload Gemini's lifestyle mockup as the visual asset.</span></li>
+                    <li><span class="check">5</span><span>Review Blotato's generated script and captions. Make any minor edits, then confirm the three connected platforms (TikTok, Instagram, YouTube Shorts).</span></li>
+                    <li><span class="check">6</span><span>Click Publish (or schedule for optimal posting time). Blotato posts to all three platforms simultaneously.</span></li>
+                    <li><span class="check">7</span><span>Log the post IDs and niche in your tracking sheet. Review engagement after 24 hours to inform the next cycle's niche scoring.</span></li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Conclusion / CTA -->
+    <section class="conclusion">
+        <div class="container" style="max-width: 900px;">
+            <h2>Zero-touch from idea to live post.</h2>
+            <p>
+                The Blotato Pipeline collapses a full content production workflow into four automated
+                stages. Built on top of the existing POD Automation system, it adds video marketing
+                to every product cycle — at no extra manual effort.
+            </p>
+            <a href="index.html" class="cta-button">Back to Full System</a>
+            <a href="dashboard.html" class="cta-button secondary">View Dashboard</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>The Blotato Pipeline</h3>
+                <p>An automated four-stage system that takes a niche idea to a live multi-platform video without manual work.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#workflow">7-Phase Workflow</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="blotato-pipeline.html">Blotato Pipeline</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Pipeline Stages</h3>
+                <ul>
+                    <li><a href="#section-3">Stage 1 — Claude (Niche)</a></li>
+                    <li><a href="#section-3">Stage 2 — Gemini (Design)</a></li>
+                    <li><a href="#section-3">Stage 3 — Blotato (Video)</a></li>
+                    <li><a href="#section-3">Stage 4 — Auto-Publish</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Print-on-Demand Automation System. Powered by Claude, Gemini &amp; Blotato.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
